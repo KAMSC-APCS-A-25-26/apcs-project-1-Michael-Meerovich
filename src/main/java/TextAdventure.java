@@ -7,7 +7,5 @@ public class TextAdventure
         //Variables
         int resources, hp;
         Scanner sc = new Scanner(System.in);
-
-
     }
 }
