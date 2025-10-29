@@ -24,7 +24,7 @@ public class TextAdventure
             if (menuOption == 1)
             {
                 //Play the game
-                //Intro - Scene 1
+                //Intro - Scene 1 - Forest
                 System.out.println("⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⣠⣴⣶⡾⠛⡻⡷⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀\n" +
                         "⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⢀⣼⣿⠟⠁⠀⢀⣠⢔⡽⡿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠀⠀⠀\n" +
                         "⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⢹⣿⣛⢤⠂⠰⣴⣷⡟⣡⠐⢽⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
@@ -60,7 +60,37 @@ public class TextAdventure
                         "[1] Go to the left\n[2] Go to the right\n" +
                         "[3] Go forward]\n[4] Look around");
                 int choice = sc.nextInt();
-                
+                //The switch case for the choice will last until you make it to the river
+                //The looking around is optional - you will still need to pick a direction choice
+                while (choice == 4)
+                {
+                    System.out.println ("You spot resources which could be useful on your trip\n" +
+                            "Current resources: 15");
+                    System.out.println ("You spot a stick. It could be used as a weapon in a pinch." +
+                            " Would you like to take it?\n[1] Yes\n[2] No");
+                    choice = sc.nextInt();
+                    if (choice == 1)
+                    {
+                        DMG = 5;
+                        System.out.println ("DMG: " + DMG);
+                    }
+                    System.out.println ("What direction do you want to go in?\n[1] Left\n" +
+                            "[2] Right\n[3] Forward");
+                    choice = sc.nextInt();
+                }
+                switch (choice)
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
+
+
+                //Scene 2 - River
+
 
                 //Once you finish playing it will end here
                 play = false;
