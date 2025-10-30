@@ -140,8 +140,9 @@ public class TextAdventure
                                     "              jgs  )   `\\    (_   \"(\n" +
                                     "                  /   /\\_)     `\\   \\\n" +
                                     "                 (((_/           \\_)))");
-                            System.out.println ("Monkey HP: " + enemyHP + "\nYour HP:" + hp);
-                            System.out.println ("What would you like to do?\n[1] Attack\n[2] Block\n[3] Run");
+                            System.out.println ("Monkey HP: " + enemyHP + "\nYour HP:" + hp + "\nResources: " + resources);
+                            System.out.println ("What would you like to do?\n[1] Attack\n[2] Block\n[3] Run\n" +
+                                    "[4] Heal - 1 resource = 1 hp");
                             int decision = sc.nextInt();
                             if (decision == 1)
                             {
@@ -164,6 +165,32 @@ public class TextAdventure
                             {
                                 System.out.println ("You put up your guard");
                             }
+                            else if (decision == 3)
+                            {
+                                    System.out.print ("How much hp would you like to heal? ");
+                                    int value = sc.nextInt();
+                                    if (resources >= value)
+                                    {
+                                        hp += value;
+                                        resources -= value;
+                                    }
+                                    else {
+                                        System.out.println ("Insufficient Resources");
+                                    }
+                                 while (value != resources)
+                                 {
+                                     System.out.print ("How much hp would you like to heal? ");
+                                     value = sc.nextInt();
+                                     if (resources >= value)
+                                     {
+                                         hp += value;
+                                         resources -= value;
+                                     }
+                                     else {
+                                         System.out.println ("Insufficient Resources");
+                                     }
+                                 }
+                            }
                             if (enemyHP > 0 && battle)
                             {
                                 int value = rand.nextInt(4) + 1;
@@ -178,12 +205,144 @@ public class TextAdventure
                                     System.out.println ("The monkey strikes, dealing " + value + " damage");
                                 }
                             }
+                            if (enemyHP == 0)
+                            {
+                                System.out.println ("You have successfully defeated the monkey");
+                            }
                         }
-                        System.out.println ("You have successfully defeated the monkey");
+                        if (hp <= 0)
+                        {
+                            System.out.println ("You have died");
+                        }
+                        else
+                        {
+                            System.out.println ("After the battle with the monkey, you continue on your path." +
+                                    "\nAfter walking through the forest for a time you find yourself at a river.");
+                        }
                         break;
                     case 2:
                         break;
                     case 3:
+                        System.out.println ("You turn right and make your way through the forest.\n" +
+                                "As you walk you hear a rustling in the trees in front of you\n" +
+                                "Would you like to investigate?\n[1] Yes\n[2] No");
+                        enemyHP = 15;
+                        int investigate = sc.nextInt();
+                        if (investigate == 2)
+                        {
+                            hp -= 7;
+                            System.out.println ("A bear leaps from the trees in front of you dealing 7 damage");
+                        }
+                        else if (investigate == 1)
+                        {
+                            System.out.println ("You notice a bear among the trees, which leaps at you attempting to strike");
+                            int value = rand.nextInt(10);
+                            if (value >= 3)
+                            {
+                                System.out.println ("However, you successfully dodge the attack");
+                            }
+                            else
+                            {
+                                hp -= (7-value);
+                                System.out.println ("The bear's attack connects dealing " + (7-value) + "damage");
+                            }
+                        }
+                        battle = true;
+                        while (hp >= 0 && enemyHP >= 0 && battle)
+                        //Need to finish this code
+                        {
+                            System.out.println (" _      _                        \n" +
+                                    " : `.--.' ;              _....,_  \n" +
+                                    " .'      `.      _..--'\"'       `-._\n" +
+                                    ":          :_.-'\"                  .`.\n" +
+                                    ":  6    6  :                     :  '.;\n" +
+                                    ":          :                      `..';\n" +
+                                    "`: .----. :'                          ;\n" +
+                                    "  `._Y _.'               '           ;\n" +
+                                    "    'U'      .'          `.         ; \n" +
+                                    "       `:   ;`-..___       `.     .'`.\n" +
+                                    "jgs    _:   :  :    ```\"''\"'``.    `.  `.\n" +
+                                    "     .'     ;..'            .'       `.'`\n" +
+                                    "    `.......'              `........-'`");
+                            System.out.println ("Monkey HP: " + enemyHP + "\nYour HP:" + hp + "\nResources: " + resources);
+                            System.out.println ("What would you like to do?\n[1] Attack\n[2] Block\n[3] Run\n" +
+                                    "[4] Heal - 1 resource = 1 hp");
+                            int decision = sc.nextInt();
+                            if (decision == 1)
+                            {
+                                enemyHP -= DMG;
+                                System.out.println("You strike at the monkey dealing " + DMG + " damage");
+                            }
+                            else if (decision == 3)
+                            {
+                                if (rand.nextInt() > 7)
+                                {
+                                    System.out.println ("You successfully run away");
+                                    battle = false;
+                                }
+                                else
+                                {
+                                    System.out.println ("Your attempt to run failed");
+                                }
+                            }
+                            else if (decision == 2)
+                            {
+                                System.out.println ("You put up your guard");
+                            }
+                            else if (decision == 3)
+                            {
+                                System.out.print ("How much hp would you like to heal? ");
+                                int value = sc.nextInt();
+                                if (resources >= value)
+                                {
+                                    hp += value;
+                                    resources -= value;
+                                }
+                                else {
+                                    System.out.println ("Insufficient Resources");
+                                }
+                                while (value != resources)
+                                {
+                                    System.out.print ("How much hp would you like to heal? ");
+                                    value = sc.nextInt();
+                                    if (resources >= value)
+                                    {
+                                        hp += value;
+                                        resources -= value;
+                                    }
+                                    else {
+                                        System.out.println ("Insufficient Resources");
+                                    }
+                                }
+                            }
+                            if (enemyHP > 0 && battle)
+                            {
+                                int value = rand.nextInt(4) + 1;
+                                if (decision == 2)
+                                {
+                                    hp -= (value - 1);
+                                    System.out.println ("The monkey strikes, dealing " + (value - 1) + " damage");
+                                }
+                                else
+                                {
+                                    hp -= value;
+                                    System.out.println ("The monkey strikes, dealing " + value + " damage");
+                                }
+                            }
+                            if (enemyHP == 0)
+                            {
+                                System.out.println ("You have successfully defeated the monkey");
+                            }
+                        }
+                        if (hp <= 0)
+                        {
+                            System.out.println ("You have died");
+                        }
+                        else
+                        {
+                            System.out.println ("After the battle with the monkey, you continue on your path." +
+                                    "\nAfter walking through the forest for a time you find yourself at a river.");
+                        }
                         break;
                 }
 
