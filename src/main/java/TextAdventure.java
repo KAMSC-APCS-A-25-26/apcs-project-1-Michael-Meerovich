@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class TextAdventure
@@ -5,9 +6,10 @@ public class TextAdventure
     public static void main(String[] args)
     {
         //Variables
-        int resources=20, hp=50, EnemyHP, companionHP=50, DMG=3, companionDMG=3;
+        int resources=20, hp=50, enemyHP, companionHP=50, DMG=3, companionDMG=3;
         Scanner sc = new Scanner(System.in);
         boolean play = true;
+        Random rand = new Random();
 
         while (play)
         {
@@ -55,7 +57,7 @@ public class TextAdventure
                         "though . . . you feel as if you should remember.\n" +
                         "You know only that there is a destination that you need to reach \n" +
                         "Though, . . . you're not quite sure where it is . . . or why you need to reach it");
-                //keep adding more to the intro - it isn't done!!
+                //First choice - not major
                 System.out.println("What would you like to do\n" +
                         "[1] Go to the left\n[2] Go to the right\n" +
                         "[3] Go forward]\n[4] Look around");
@@ -81,6 +83,102 @@ public class TextAdventure
                 switch (choice)
                 {
                     case 1:
+                        System.out.println ("You turn left and make your way through the forest.\n" +
+                                "As you walk you hear a rustling the canopy above you\n" +
+                                "Would you like to investigate?\n[1] Yes\n[2] No");
+                        enemyHP = 15;
+                        int investigate = sc.nextInt();
+                        if (investigate == 2)
+                        {
+                            hp -= 5;
+                            System.out.println ("A monkey leaps down from the trees and attacks you dealing" +
+                                    "5 damage");
+                        }
+                        else if (investigate == 1)
+                        {
+                            System.out.println ("You notice a monkey in the trees, which leaps at you attempting to strike");
+                            int value = rand.nextInt(10);
+                            if (value >= 5)
+                            {
+                                System.out.println ("However, you successfully dodge the attack");
+                            }
+                            else
+                            {
+                                hp -= (5-value);
+                                System.out.println ("The monkey's attack connects dealing " + (5-value) + "damage");
+                            }
+                        }
+                        boolean battle = true;
+                        while (hp >= 0 && enemyHP >= 0 && battle)
+                        {
+                            System.out.println ("       _-.    _.._ _.-'`\n" +
+                                    "     .-; \\ \\-'`    ` _..-'\n" +
+                                    "  _.-\\_\\-'`__...__..'\n" +
+                                    "-'   __.--'` /\n" +
+                                    " _.'`   \\_ _/\n" +
+                                    "         |  \\\n" +
+                                    "         ;   \\    .-'```'-.\n" +
+                                    "          \\\"  \\  /   \"   \" \\\n" +
+                                    "           \\\"  \\| \".--.--.  |\n" +
+                                    "            \\_  ; / _   _ \\ ;\n" +
+                                    "             | ( (  e _ e  ) )\n" +
+                                    "              \\ '-|   T   |-'_\n" +
+                                    "               \\\" \\   =   /\"  `\\\n" +
+                                    "                \\  '-...-' ,  \" \\\n" +
+                                    "                 Y  \"    \"  \\    \\\n" +
+                                    "                 |\"  .     \" \\  \" \\\n" +
+                                    "                 |      \" _.-'   \" )\n" +
+                                    "                 \\ \"/\\._;'    \"_.;`\n" +
+                                    "                  \\_\\_\\.> \".''`  |\n" +
+                                    "                  /_/|_) .'    \" /---..\n" +
+                                    "                   \\ '--'    \"     \"   `\\\n" +
+                                    "              .-\"\"-.>     \"       ,   \"  |\n" +
+                                    "             / \"      \"       \"    |     /\n" +
+                                    "             \\   \"  \\  \" _.`--...-'|   \"/\n" +
+                                    "              '.\"    \\.-'         / \" .'\n" +
+                                    "                '-. \" \\       __.'  .'\n" +
+                                    "              jgs  )   `\\    (_   \"(\n" +
+                                    "                  /   /\\_)     `\\   \\\n" +
+                                    "                 (((_/           \\_)))");
+                            System.out.println ("Monkey HP: " + enemyHP + "\nYour HP:" + hp);
+                            System.out.println ("What would you like to do?\n[1] Attack\n[2] Block\n[3] Run");
+                            int decision = sc.nextInt();
+                            if (decision == 1)
+                            {
+                                enemyHP -= DMG;
+                                System.out.println("You strike at the monkey dealing " + DMG + " damage");
+                            }
+                            else if (decision == 3)
+                            {
+                                if (rand.nextInt() > 7)
+                                {
+                                    System.out.println ("You successfully run away");
+                                }
+                                else
+                                {
+                                    System.out.println ("Your attempt to run failed");
+                                }
+                            }
+                            else if (decision == 2)
+                            {
+                                System.out.println ("You put up your guard");
+                            }
+                            if (enemyHP > 0)
+                            {
+                                int value = rand.nextInt(1,4);
+                                if (decision == 2)
+                                {
+                                    hp -= (value - 1);
+                                    System.out.println ("The monkey strikes, dealing " + (value - 1) + " damage");
+                                }
+                                else
+                                {
+                                    hp -= value;
+                                    System.out.println ("The monkey strikes, dealing " + value + " damage");
+                                }
+                            }
+                        }
+                        System.out.println ("You have successfully defeated the monkey");
                         break;
                     case 2:
                         break;
