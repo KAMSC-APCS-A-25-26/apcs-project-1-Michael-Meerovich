@@ -92,7 +92,7 @@ public class TextAdventure
                         {
                             hp -= 5;
                             System.out.println ("A monkey leaps down from the trees and attacks you dealing" +
-                                    "5 damage");
+                                    " 5 damage");
                         }
                         else if (investigate == 1)
                         {
@@ -153,6 +153,7 @@ public class TextAdventure
                                 if (rand.nextInt() > 7)
                                 {
                                     System.out.println ("You successfully run away");
+                                    battle = false;
                                 }
                                 else
                                 {
@@ -163,9 +164,9 @@ public class TextAdventure
                             {
                                 System.out.println ("You put up your guard");
                             }
-                            if (enemyHP > 0)
+                            if (enemyHP > 0 && battle)
                             {
-                                int value = rand.nextInt(1,4);
+                                int value = rand.nextInt(4) + 1;
                                 if (decision == 2)
                                 {
                                     hp -= (value - 1);
