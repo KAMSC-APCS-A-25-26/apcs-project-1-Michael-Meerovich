@@ -709,7 +709,7 @@ public class TextAdventure
                     }
                 }
                 //Scene 3 - desert
-                
+
 
                 //Once you finish playing it will end here
                 play = false;
