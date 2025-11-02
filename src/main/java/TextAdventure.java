@@ -8,7 +8,7 @@ public class TextAdventure
         //Variables
         int resources=20, hp=50, enemyHP, companionHP=50, DMG=3, companionDMG=3;
         Scanner sc = new Scanner(System.in);
-        boolean play = true;
+        boolean play = true, companion;
         Random rand = new Random();
 
         while (play)
@@ -709,7 +709,7 @@ public class TextAdventure
                     }
                 }
                 //Scene 3 - desert
-
+                //Encounter some bandits - then encounter the companion - then go to the mountains
 
                 //Once you finish playing it will end here
                 play = false;
