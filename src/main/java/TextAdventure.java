@@ -8,10 +8,10 @@ public class TextAdventure
         //Variables
         int resources=20, hp=50, enemyHP, companionHP=50, DMG=3, companionDMG=3;
         Scanner sc = new Scanner(System.in);
-        boolean play = true, companion=false;
+        boolean play, companion=false, run = true;
         Random rand = new Random();
 
-        while (play)
+        while (run)
         {
             //Title Screen
             System.out.println (" _____ _ _   _      \n" +
@@ -26,6 +26,7 @@ public class TextAdventure
             if (menuOption == 1)
             {
                 //Play the game
+                play = true;
                 //Intro - Scene 1 - Forest
                 System.out.println("⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⣠⣴⣶⡾⠛⡻⡷⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀\n" +
                         "⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⢀⣼⣿⠟⠁⠀⢀⣠⢔⡽⡿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠀⠀⠀\n" +
@@ -1201,8 +1202,8 @@ public class TextAdventure
                 }
                 else if (menuOption == 3)
                 {
-                    System.out.print("What are you doing here then?");
-
+                    System.out.print("Goodbye");
+                    run = false;
                 }
 
             }
