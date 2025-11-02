@@ -463,12 +463,12 @@ public class TextAdventure
                                 if (decision == 2)
                                 {
                                     hp -= (value - 1);
-                                    System.out.println ("The monkey strikes, dealing " + (value - 1) + " damage");
+                                    System.out.println ("The bear strikes, dealing " + (value - 1) + " damage");
                                 }
                                 else
                                 {
                                     hp -= value;
-                                    System.out.println ("The monkey strikes, dealing " + value + " damage");
+                                    System.out.println ("The bear strikes, dealing " + value + " damage");
                                 }
                             }
                             if (enemyHP == 0)
@@ -531,7 +531,7 @@ public class TextAdventure
                             "                ~           ~       ; `. \"\"                   ..\n" +
                             "                                     `.  )     \\\"       .--\"\"\"");
                     System.out.println("As you approach the river, you notice your reflection" +
-                            ", you look human, though not quite. You feel as if you look less real than you should. Less alive." +
+                            ", you look human, though, not quite. You feel as if you look less real than you should. Less alive." +
                             "\nYou decide that you should go along the river. \nWhat method of travel would you like to do?" +
                             "\n[1] Walk alongside the river\n[2] Ride down the river on a raft - 7 resources");
                     int value = sc.nextInt();
@@ -545,10 +545,171 @@ public class TextAdventure
                         System.out.println ("You construct a raft, and travel down the river.\nYour raft flows along the river" +
                                 "for a time, until finally you return to shore. You find that you have arrived at a desert");
                     }
-                    else if ()
+                    else if (value ==1)
+                    {
+                        System.out.println ("You walk along the river for a time");
+                        System.out.println ("\nAs you walk you hear a rustling in the brush beside you\n" +
+                                "Would you like to investigate?\n[1] Yes\n[2] No");
+                        enemyHP = 20;
+                        int investigate = sc.nextInt();
+                        if (investigate == 2)
+                        {
+                            hp -= 4;
+                            System.out.println ("A wolf lunges at you dealing 7 damage");
+                        }
+                        else if (investigate == 1)
+                        {
+                            System.out.println ("You notice a wolf among the brush, which leaps at you attempting to strike");
+                            value = rand.nextInt(10);
+                            if (value >= 4)
+                            {
+                                System.out.println ("However, you successfully dodge the attack");
+                            }
+                            else
+                            {
+                                hp -= (7-value);
+                                System.out.println ("The wolf's attack connects dealing " + (4-value) + "damage");
+                            }
+                        }
+                        boolean battle = true;
+                        while (hp >= 0 && enemyHP >= 0 && battle)
+                        {
+                            System.out.println ("  ,     ,\n" +
+                                    "                        |\\---/|\n" +
+                                    "                       /  , , |\n" +
+                                    "                  __.-'|  / \\ /\n" +
+                                    "         __ ___.-'        ._O|\n" +
+                                    "      .-'  '        :      _/\n" +
+                                    "     / ,    .        .     |\n" +
+                                    "    :  ;    :        :   _/\n" +
+                                    "    |  |   .'     __:   /\n" +
+                                    "    |  :   /'----'| \\  |\n" +
+                                    "    \\  |\\  |      | /| |\n" +
+                                    "     '.'| /       || \\ |\n" +
+                                    "     | /|.'       '.l \\\\_\n" +
+                                    "snd  || ||             '-'\n" +
+                                    "     '-''-'");
+                            System.out.println ("Wolf HP: " + enemyHP + "\nYour HP:" + hp + "\nResources: " + resources);
+                            System.out.println ("What would you like to do?\n[1] Attack\n[2] Block\n[3] Run\n" +
+                                    "[4] Heal - 1 resource = 1 hp");
+                            int decision = sc.nextInt();
+                            if (decision == 1)
+                            {
+                                enemyHP -= DMG;
+                                System.out.println("You strike at the wolf dealing " + DMG + " damage");
+                            }
+                            else if (decision == 3)
+                            {
+                                if (rand.nextInt() > 7)
+                                {
+                                    System.out.println ("You successfully run away");
+                                    battle = false;
+                                }
+                                else
+                                {
+                                    System.out.println ("Your attempt to run failed");
+                                }
+                            }
+                            else if (decision == 2)
+                            {
+                                System.out.println ("You put up your guard");
+                            }
+                            else if (decision == 3)
+                            {
+                                System.out.print ("How much hp would you like to heal? ");
+                                value = sc.nextInt();
+                                if (resources >= value)
+                                {
+                                    hp += value;
+                                    resources -= value;
+                                }
+                                else {
+                                    System.out.println ("Insufficient Resources");
+                                }
+                                while (value != resources)
+                                {
+                                    System.out.print ("How much hp would you like to heal? ");
+                                    value = sc.nextInt();
+                                    if (resources >= value)
+                                    {
+                                        hp += value;
+                                        resources -= value;
+                                    }
+                                    else {
+                                        System.out.println ("Insufficient Resources");
+                                    }
+                                }
+                            }
+                            if (enemyHP > 0 && battle)
+                            {
+                                value = rand.nextInt(3) + 1;
+                                if (decision == 2)
+                                {
+                                    hp -= (value - 1);
+                                    System.out.println ("The wolf strikes, dealing " + (value - 1) + " damage");
+                                }
+                                else
+                                {
+                                    hp -= value;
+                                    System.out.println ("The wolf strikes, dealing " + value + " damage");
+                                }
+                            }
+                            if (enemyHP == 0)
+                            {
+                                System.out.println ("You have successfully defeated the wolf.\nSome parts of the wolf" +
+                                        "seem like they could be useful resources. Would you like to take them\n" +
+                                        "[1] Yes\n[2] No");
+                                value = sc.nextInt();
+                                if (value == 1)
+                                {
+                                    resources += 1;
+                                    System.out.println ("Resources: " + resources);
+                                }
+                            }
+                        }
+                        if (hp <= 0)
+                        {
+                            System.out.println ("You have died");
+                            play = false;
+                        }
+                        else
+                        {
+                            System.out.println ("After the battle with the wolf, you continue on your path.");
+                        }
+                        System.out.println ("As you continue walking, eventually, you hear yet more rustling in the brush\n" +
+                                "Would you like to investigate?\n[1] Yes\n[2] No");
+                        value = sc.nextInt();
+                        if (value == 1)
+                        {
+                            System.out.println ("You look around and notice a rabbit in the brush\n((`\\\n" +
+                                    "            ___ \\\\ '--._\n" +
+                                    "         .'`   `'    o  )\n" +
+                                    "        /    \\   '. __.'\n" +
+                                    "       _|    /_  \\ \\_\\_\n" +
+                                    "jgs   {_\\______\\-'\\__\\_\\");
+                            System.out.println ("You notice some items in the brush that look somewhat useful\n" +
+                                    "Would you like to take them?\n[1] Yes\n[2] No");
+                            value = sc.nextInt();
+                            if (value == 1)
+                            {
+                                resources += 2;
+                                System.out.println ("Resources: " + resources);
+                                System.out.println ("You continue on your way");
+                            }
+                            else
+                            {
+                                System.out.println ("You continue on your way");
+                            }
+                        }
+                        else
+                        {
+                            System.out.println ("You continue on your way");
+                        }
+                        System.out.println ("As you continue walking, eventually you find that you have arrived at a desert");
+                    }
                 }
                 //Scene 3 - desert
-
+                
 
                 //Once you finish playing it will end here
                 play = false;
