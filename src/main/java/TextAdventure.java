@@ -964,36 +964,52 @@ public class TextAdventure
                             "@88:::&(&8&&8:::::%&`.~-_~~-~~_~-~_~-~~=.'@(&%::::%@8&8)::&#@8::::\n" +
                             "`::::::8%@@%:::::@%&8:`.=~~-.~~-.~~=..~'8::::::::&@8:::::&8:::::'\n" +
                             " `::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::.'");
-                            System.out.println ("As you approach the mountains, some 2 thugs step out in front of you" +
-                                    " and attack you");
-                            //Battle against 2 enemies - I need to change the code for 2 enemies
+                    System.out.println ("As you approach the mountains, some 2 thugs step out in front of you" +
+                            " and attack you");
+                    //Battle against 2 enemies - I need to change the code for 2 enemies
 
                     boolean battle = true;
-                    while (hp >= 0 && enemyHP >= 0 && battle)
+                    int enemy1hp = 30, enemy2hp = 30;
+                    while (hp >= 0 && (enemy1hp >= 0 || enemy2hp >= 0) && battle)
                     {
-                        System.out.println ("  ,     ,\n" +
-                                "                        |\\---/|\n" +
-                                "                       /  , , |\n" +
-                                "                  __.-'|  / \\ /\n" +
-                                "         __ ___.-'        ._O|\n" +
-                                "      .-'  '        :      _/\n" +
-                                "     / ,    .        .     |\n" +
-                                "    :  ;    :        :   _/\n" +
-                                "    |  |   .'     __:   /\n" +
-                                "    |  :   /'----'| \\  |\n" +
-                                "    \\  |\\  |      | /| |\n" +
-                                "     '.'| /       || \\ |\n" +
-                                "     | /|.'       '.l \\\\_\n" +
-                                "snd  || ||             '-'\n" +
-                                "     '-''-'");
-                        System.out.println ("Wolf HP: " + enemyHP + "\nYour HP:" + hp + "\nResources: " + resources);
+                        System.out.println (" .---.             .---.    \n" +
+                                "     /_____\\           /_____\\       \n" +
+                                "     ( '.' )           ( '.' )         \n" +
+                                "      \\_-_/_            \\_-_/_       \n" +
+                                "   .-\"`'V'//-.       .-\"`'V'//-.      \n" +
+                                "  / ,   |// , \\     / ,   |// , \\    \n" +
+                                " / /|Ll //Ll|\\ \\   / /|Ll //Ll|\\ \\  \n" +
+                                "/ / |__//   | \\_\\ / / |__//   | \\_\\ \n" +
+                                "\\ \\/---|[]==| / / \\ \\/---|[]==| / / \n" +
+                                " \\/\\__/ |   \\/\\/   \\/\\__/ |   \\/\\\n" +
+                                "  |/_   | Ll_\\|     |/_   | Ll_\\|     \n" +
+                                "    |`^\"\"\"^`|         |`^\"\"\"^`|   \n" +
+                                "    |   |   |         |   |   |        \n" +
+                                "    |   |   |         |   |   |        \n" +
+                                "    |   |   |         |   |   |         \n" +
+                                "    |   |   |         |   |   |         \n" +
+                                "    L___l___J         L___l___J         \n" +
+                                "     |_ | _|           |_ | _|         \n" +
+                                "jgs (___|___)         (___|___)       \n" +
+                                "     ^^^ ^^^           ^^^ ^^^       ");
+                        System.out.println ("Enemy 1 HP: " + enemy1hp + "Enemy 2 HP: " + enemy2hp +
+                                "\nYour HP:" + hp + "\nResources: " + resources);
+                        if (companion)
+                        {
+                            System.out.println ("Companion HP: " + companionHP);
+                        }
                         System.out.println ("What would you like to do?\n[1] Attack\n[2] Block\n[3] Run\n" +
                                 "[4] Heal - 1 resource = 1 hp");
                         int decision = sc.nextInt();
                         if (decision == 1)
                         {
-                            enemyHP -= DMG;
-                            System.out.println("You strike at the wolf dealing " + DMG + " damage");
+                            System.out.println ("Which enemy would you like to attack");
+                            int target = sc.nextInt();
+                            if (target == 1)
+                            {
+                                enemy1hp -= DMG;
+                                System.out.println("You strike at the enemy dealing " + DMG + " damage");
+                            }
                         }
                         else if (decision == 3)
                         {
@@ -1014,7 +1030,7 @@ public class TextAdventure
                         else if (decision == 3)
                         {
                             System.out.print ("How much hp would you like to heal? ");
-                            value = sc.nextInt();
+                            int value = sc.nextInt();
                             if (resources >= value)
                             {
                                 hp += value;
@@ -1037,59 +1053,158 @@ public class TextAdventure
                                 }
                             }
                         }
-                        if (enemyHP > 0 && battle)
+                        if (companion)
                         {
-                            value = rand.nextInt(3) + 1;
+                            if (enemy1hp <= enemy2hp && enemy1hp > 0)
+                            {
+                                System.out.println ("The companion strikes enemy 1 dealing " + companionDMG + " damage");
+                                enemy1hp -= companionDMG;
+                            }
+                            else
+                            {
+                                System.out.println ("The companion strikes enemy 2 dealing" + companionDMG + " damage");
+                                enemy2hp -= companionDMG;
+                            }
+                        }
+                        if (enemy1hp > 0 && battle)
+                        {
+                            int value = rand.nextInt(3) + 1;
                             if (decision == 2)
                             {
-                                hp -= (value - 1);
-                                System.out.println ("The wolf strikes, dealing " + (value - 1) + " damage");
+                                if (companion)
+                                {
+                                    boolean target = rand.nextBoolean();
+                                    if (target)
+                                    {
+                                        System.out.println ("The enemy strikes, dealing " + (value - 1) + " damage");
+                                        hp -= (value - 1);
+                                    }
+                                    else
+                                    {
+                                        System.out.println ("The enemy strikes your companion, dealing " + (value - 1) + " damage");
+                                        companionHP -= (value - 1);
+                                    }
+                                }
+                                else
+                                {
+                                    hp -= (value - 1);
+                                    System.out.println("The enemy strikes, dealing " + (value - 1) + " damage");
+                                }
                             }
                             else
                             {
                                 hp -= value;
-                                System.out.println ("The wolf strikes, dealing " + value + " damage");
+                                System.out.println ("The enemy strikes, dealing " + value + " damage");
                             }
                         }
-                        if (enemyHP == 0)
+                        if (enemy2hp > 0 && battle)
                         {
-                            System.out.println ("You have successfully defeated the wolf.\nSome parts of the wolf" +
-                                    "seem like they could be useful resources. Would you like to take them\n" +
-                                    "[1] Yes\n[2] No");
-                            value = sc.nextInt();
-                            if (value == 1)
+                            int value = rand.nextInt(3) + 1;
+                            if (decision == 2)
                             {
-                                resources += 1;
-                                System.out.println ("Resources: " + resources);
+                                if (companion)
+                                {
+                                    boolean target = rand.nextBoolean();
+                                    if (target)
+                                    {
+                                        System.out.println ("The enemy strikes, dealing " + (value - 1) + " damage");
+                                        hp -= (value - 1);
+                                    }
+                                    else
+                                    {
+                                        System.out.println ("The enemy strikes your companion, dealing " + (value - 1) + " damage");
+                                        companionHP -= (value - 1);
+                                    }
+                                }
+                                else
+                                {
+                                    hp -= (value - 1);
+                                    System.out.println("The enemy strikes, dealing " + (value - 1) + " damage");
+                                }
                             }
+                            else
+                            {
+                                hp -= value;
+                                System.out.println ("The enemy strikes, dealing " + value + " damage");
+                            }
+                            if (enemy1hp <= 0 && enemy2hp <= 0)
+                            {
+                                System.out.println ("You have successfully defeated the enemies.\nThey seem to have some" +
+                                        "useful resources.\n Would you like to take them\n" +
+                                        "[1] Yes\n[2] No");
+                                value = sc.nextInt();
+                                if (value == 1)
+                                {
+                                    if (companion)
+                                    {
+                                        resources += 3;
+                                        System.out.println ("Resources: " + resources);
+                                    }
+                                    else
+                                    {
+                                        resources += 6;
+                                        System.out.println("Resources: " + resources);
+                                    }
+                                }
+                            }
+                        }
+                        if (hp <= 0)
+                        {
+                            System.out.println ("You have died");
+                            play = false;
+                        }
+                        else
+                        {
+                            System.out.println ("After the battle with the enemies, you continue on your towards the mountains.");
                         }
                     }
-                    if (hp <= 0)
+
+                    //Encounter some bandits - then go to the mountains - second major decision - cave or cliff
+                    //Second major decision
+                    int decision;
+                    if (companion)
                     {
-                        System.out.println ("You have died");
-                        play = false;
+                        System.out.println ("Companion: \"There are two methods to get past the mountains\n" +
+                                "We can either go over the mountains, or we can go through a cave system.\n" +
+                                "Which method should we choose?\"");
+                        System.out.println ("[1] We should go over the mountains\n[2] We should go through the cave system");
                     }
                     else
                     {
-                        System.out.println ("After the battle with the wolf, you continue on your path.");
+                        System.out.println ("You look at the map you took, and see two paths through the mountains" +
+                                "You can either go over the mountains, or you can go through a cave system");
+                        System.out.println ("Which path will you take?\n[1] Over the mountains\n[2] Through the caves");
                     }
+                    decision = sc.nextInt();
+                    if (decision == 1)
+                    {
+                        //Scene 5 - cliffs
+                        System.out.println ("You continue walking and attempt to scale the mountain");
+                    }
+                    else if (decision == 2)
+                    {
+                        //Scene 6 - caves
+                        int path = 0;
+                        System.out.println ("You continue walking and make your way into the entrance of the cave system");
+                        System.out.println ("From their you see 3 paths you can take to get deeper into the caves");
+                        System.out.println ("You can either go left, right, or forward.\n Which direction do you want to go in?");
+                        System.out.println ("[1] Left\n[2] Right\n[3] Forward");
+
+                    }
+
+                    //Once you finish playing it will end here
+                    play = false;
+                }
+                else if (menuOption == 2)
+                {
+                    System.out.println("Just select the option you wish to perform.");
+                }
+                else if (menuOption == 3)
+                {
+                    System.out.print("What are you doing here then?");
+
                 }
 
-                //Encounter some bandits - then go to the mountains - second major decision - cave or cliff
-
-                //Once you finish playing it will end here
-                play = false;
             }
-            else if (menuOption == 2)
-            {
-                System.out.println("Just select the option you wish to perform.");
-            }
-            else if (menuOption == 3)
-            {
-                System.out.print("What are you doing here then?");
-
-            }
-
         }
-    }
-}}
+    }}
