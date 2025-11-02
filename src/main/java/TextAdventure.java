@@ -250,7 +250,18 @@ public class TextAdventure
                         battle = true;
                         while (hp >= 0 && enemyHP >= 0 && battle)
                         {
-                            System.out.println ("");
+                            System.out.println (" /\\_[]_/\\\n" +
+                                    "              |] _||_ [|\n" +
+                                    "       ___     \\/ || \\/\n" +
+                                    "      /___\\       ||\n" +
+                                    "     (|0 0|)      ||\n" +
+                                    "   __/{\\U/}\\_ ___/vvv\n" +
+                                    "  / \\  {~}   / _|_P|\n" +
+                                    "  | /\\  ~   /_/   []\n" +
+                                    "  |_| (____)        \n" +
+                                    "  \\_]/______\\        -edias-\n" +
+                                    "     _\\_||_/_           \n" +
+                                    "snd (_,_||_,_)");
                             System.out.println ("Bandit HP: " + enemyHP + "\nYour HP:" + hp + "\nResources: " + resources);
                             System.out.println ("What would you like to do?\n[1] Attack\n[2] Block\n[3] Run\n" +
                                     "[4] Heal - 1 resource = 1 hp");
@@ -476,6 +487,7 @@ public class TextAdventure
                         if (hp <= 0)
                         {
                             System.out.println ("You have died");
+                            play = false;
                         }
                         else
                         {
@@ -485,6 +497,57 @@ public class TextAdventure
                         break;
                 }
                 //Scene 2 - River
+                if (play) {
+                    System.out.println("(              ````                                            \n" +
+                            ";`             ;;                                               \n" +
+                            " ;;  -\"\"-.   ;;                 -;'  -.                         \n" +
+                            "   \"\"     ``                      `.   `.                       \n" +
+                            "                                    ;    `                      \n" +
+                            "           `;                  -          ;         -.        ;`\n" +
+                            "             `-  `.         .'`  .-'             .--`  ;     ;  \n" +
+                            "              ;    `-.   ;    `-'             .;`     ;       `.\n" +
+                            "              .        ``                                       \n" +
+                            "               `            .--------.             .'           \n" +
+                            "             ...        .--'``````````'--.        ;.            \n" +
+                            "            `      . .-' .``          ``. '-. .      `.         \n" +
+                            "          ;-.;  .  .' .`                  `. '.  .    ;         \n" +
+                            "              .' .' .`                      `. '. '.    .       \n" +
+                            "_____/'.-..___________________________ mvn,, ___________________\n" +
+                            "                             )\\     nMmIEFooPTn                 \n" +
+                            "                            ( (    Li1iiJl1ItTIjp               \n" +
+                            "                             ) \\  i i_BP_LWmKK`  J  `           \n" +
+                            "`                .          /  (   i1 LL 1I`L            .      \n" +
+                            "             ..             \\   \\  i   X  Y o1                  \n" +
+                            "                        .    )   )  `   l   p      ..           \n" +
+                            ";                           /   (,      l(@) l                ..\n" +
+                            "  q      ` .  '            (     \\.     i    p   R          .;  \n" +
+                            "   \\  t            ;        )     \\`   j,.. ,.q,/Pqoj          `\n" +
+                            "    \\/            `       ./       \\`;     `'     `          .. \n" +
+                            "  '-     \\;            -'.'    ;    \\ `                     `. `\n" +
+                            ".--.`.; ,-.. ,.-, ;' `.-'       `    `.'.   .--.\"\"-._        .; \n" +
+                            "    `............---\"\"     ;_.         )   (  '=    /         `-\n" +
+                            " ~                                    /     `------'     .      \n" +
+                            "                 ~                  ,'  \\|//            `'      \n" +
+                            "                ~           ~       ; `. \"\"                   ..\n" +
+                            "                                     `.  )     \\\"       .--\"\"\"");
+                    System.out.println("As you approach the river, you notice your reflection" +
+                            ", you look human, though not quite. You feel as if you look less real than you should. Less alive." +
+                            "\nYou decide that you should go along the river. \nWhat method of travel would you like to do?" +
+                            "\n[1] Walk alongside the river\n[2] Ride down the river on a raft - 7 resources");
+                    int value = sc.nextInt();
+                    while (value == 2 && resources < 7) {
+                        System.out.println("Insufficient resources\nResources: " + resources + "\nWhat would you like to do?" +
+                                "\n[1] Walk alongside the river\n[2] Ride down the river on a raft - 7 resources");
+                    }
+                    if (value == 2) {
+                        resources -= 7;
+                        System.out.println ("Resources: " + resources);
+                        System.out.println ("You construct a raft, and travel down the river.\nYour raft flows along the river" +
+                                "for a time, until finally you return to shore. You find that you have arrived at a desert");
+                    }
+                    else if ()
+                }
+                //Scene 3 - desert
 
 
                 //Once you finish playing it will end here
