@@ -166,7 +166,7 @@ public class TextAdventure
                             {
                                 System.out.println ("You put up your guard");
                             }
-                            else if (decision == 3)
+                            else if (decision == 4)
                             {
                                 System.out.print ("How much hp would you like to heal? ");
                                 int value = sc.nextInt();
@@ -288,7 +288,7 @@ public class TextAdventure
                             {
                                 System.out.println ("You put up your guard");
                             }
-                            else if (decision == 3)
+                            else if (decision == 4)
                             {
                                 System.out.print ("How much hp would you like to heal? ");
                                 int value = sc.nextInt();
@@ -432,7 +432,7 @@ public class TextAdventure
                             {
                                 System.out.println ("You put up your guard");
                             }
-                            else if (decision == 3)
+                            else if (decision == 4)
                             {
                                 System.out.print ("How much hp would you like to heal? ");
                                 int value = sc.nextInt();
@@ -615,7 +615,7 @@ public class TextAdventure
                             {
                                 System.out.println ("You put up your guard");
                             }
-                            else if (decision == 3)
+                            else if (decision == 4)
                             {
                                 System.out.print ("How much hp would you like to heal? ");
                                 value = sc.nextInt();
@@ -1028,7 +1028,7 @@ public class TextAdventure
                         {
                             System.out.println ("You put up your guard");
                         }
-                        else if (decision == 3)
+                        else if (decision == 4)
                         {
                             System.out.print ("How much hp would you like to heal? ");
                             int value = sc.nextInt();
@@ -1177,35 +1177,625 @@ public class TextAdventure
                         System.out.println ("Which path will you take?\n[1] Over the mountains\n[2] Through the caves");
                     }
                     decision = sc.nextInt();
-                    if (decision == 1)
+                    if (decision == 1 && play)
                     {
                         //Scene 5 - cliffs
                         System.out.println ("You continue walking and attempt to scale the mountain");
+                        //Scene 5 battle 1
+                        System.out.println ("As you make your way up the mountain you stumble onto a massive nest\n" +
+                                "A massive gryphon swoops down and attacks you");
+                        battle = true;
+                        enemyHP = 50;
+                        while (hp >= 0 && enemyHP >= 0 && battle)
+                        {
+                            System.out.println ("                       ______\n" +
+                                    "             ______,---'__,---'\n" +
+                                    "         _,-'---_---__,---'\n" +
+                                    "  /_    (,  ---____',\n" +
+                                    " /  ',,   `, ,-'\n" +
+                                    ";/)   ,',,_/,'\n" +
+                                    "| /\\   ,.'//\\\n" +
+                                    "`-` \\ ,,'    `.\n" +
+                                    "     `',   ,-- `.\n" +
+                                    "     '/ / |      `,         _\n" +
+                                    "     //'',.\\_    .\\\\      ,{==>-\n" +
+                                    "  __//   __;_`-  \\ `;.__,;'\n" +
+                                    "((,--,) (((,------;  `--' jv");
+                            System.out.println ("Gryphon HP: " + enemyHP + "\nYour HP:" + hp + "\nResources: " + resources);
+                            System.out.println ("What would you like to do?\n[1] Attack\n[2] Block\n[3] Run\n" +
+                                    "[4] Heal - 1 resource = 1 hp");
+                            int battleDecision = sc.nextInt();
+                            if (battleDecision == 1)
+                            {
+                                enemyHP -= DMG;
+                                System.out.println("You strike at the gryphon dealing " + DMG + " damage");
+                            }
+                            else if (battleDecision == 3)
+                            {
+                                if (rand.nextInt() > 7)
+                                {
+                                    System.out.println ("You successfully run away");
+                                    battle = false;
+                                }
+                                else
+                                {
+                                    System.out.println ("Your attempt to run failed");
+                                }
+                            }
+                            else if (battleDecision == 2)
+                            {
+                                System.out.println ("You put up your guard");
+                            }
+                            else if (battleDecision == 4)
+                            {
+                                System.out.print ("How much hp would you like to heal? ");
+                                int value = sc.nextInt();
+                                if (resources >= value)
+                                {
+                                    hp += value;
+                                    resources -= value;
+                                }
+                                else {
+                                    System.out.println ("Insufficient Resources");
+                                }
+                                while (value != resources)
+                                {
+                                    System.out.print ("How much hp would you like to heal? ");
+                                    value = sc.nextInt();
+                                    if (resources >= value)
+                                    {
+                                        hp += value;
+                                        resources -= value;
+                                    }
+                                    else {
+                                        System.out.println ("Insufficient Resources");
+                                    }
+                                }
+                            }
+                            if (companion)
+                            {
+                                enemyHP -= companionDMG;
+                                System.out.println("Your companion strike at the gryphon dealing " + DMG + " damage");
+                            }
+                            if (enemyHP > 0 && battle)
+                            {
+                                int value = rand.nextInt(6) + 1;
+                                if (decision == 2)
+                                {
+                                    if (companion)
+                                    {
+                                        boolean target = rand.nextBoolean();
+                                        if (target)
+                                        {
+                                            System.out.println ("The enemy strikes, dealing " + (value - 1) + " damage");
+                                            hp -= (value - 1);
+                                        }
+                                        else
+                                        {
+                                            System.out.println ("The enemy strikes your companion, dealing " + (value - 1) + " damage");
+                                            companionHP -= (value - 1);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        hp -= (value - 1);
+                                        System.out.println("The gryphon strikes, dealing " + (value - 1) + " damage");
+                                    }
+                                }
+                                else
+                                {
+                                    hp -= value;
+                                    System.out.println ("The gryphon strikes, dealing " + value + " damage");
+                                }
+                            }
+                            if (enemyHP <= 0)
+                            {
+                                System.out.println ("You have successfully defeated the gryphon\n" +
+                                        "Some parts of it seem usable, so you take them");
+                                if (companion)
+                                {
+                                    resources += 2;
+                                }
+                                else
+                                {
+                                    resources += 4;
+                                }
+                                System.out.println ("Resources: " + resources);
+                            }
+                        }
+                        if (hp <= 0)
+                        {
+                            System.out.println ("You have died");
+                            play = false;
+                        }
+                        //Scene 5 battle 2
+                        System.out.println ("You crest the mountains, and once again stumble on a nest\nA dragon" +
+                                " swoops down and attacks you");
+                        battle = true;
+                        enemyHP = 70;
+                        while (hp >= 0 && enemyHP >= 0 && battle)
+                        {
+                            System.out.println ("   -,,,__\n" +
+                                    "                     \\    ``~~--,,__                /   /\n" +
+                                    "                     /              ``~~--,,_     //--//\n" +
+                                    "          _,,,,-----,\\              ,,,,---- >   (c  c)\\\n" +
+                                    "      ,;''            `\\,,,,----''''   ,,-'''---/   /_ ;___        -,_\n" +
+                                    "     ( ''---,;====;,----/             (-,,_____/  /'/ `;   '''''----\\ `:.\n" +
+                                    "     (                 '               `      (oo)/   ;~~~~~~~~~~~~~/--~\n" +
+                                    "      `;_           ;    \\            ;   \\   `  ' ,,'\n" +
+                                    "         ```-----...|     )___________|    )-----'''\n" +
+                                    "Art by               \\   /             \\   \\\\\n" +
+                                    "  Korrath            /  /,              `\\   \\\\\n" +
+                                    "                   ,'---\\ \\              ,---`,;,\n" +
+                                    "                         ```");
+                            System.out.println ("Dragon HP: " + enemyHP + "\nYour HP:" + hp + "\nResources: " + resources);
+                            System.out.println ("What would you like to do?\n[1] Attack\n[2] Block\n[3] Run\n" +
+                                    "[4] Heal - 1 resource = 1 hp");
+                            int battleDecision = sc.nextInt();
+                            if (battleDecision == 1)
+                            {
+                                enemyHP -= DMG;
+                                System.out.println("You strike at the dragon dealing " + DMG + " damage");
+                            }
+                            else if (battleDecision == 3)
+                            {
+                                if (rand.nextInt() > 7)
+                                {
+                                    System.out.println ("You successfully run away");
+                                    battle = false;
+                                }
+                                else
+                                {
+                                    System.out.println ("Your attempt to run failed");
+                                }
+                            }
+                            else if (battleDecision == 2)
+                            {
+                                System.out.println ("You put up your guard");
+                            }
+                            else if (battleDecision == 4)
+                            {
+                                System.out.print ("How much hp would you like to heal? ");
+                                int value = sc.nextInt();
+                                if (resources >= value)
+                                {
+                                    hp += value;
+                                    resources -= value;
+                                }
+                                else {
+                                    System.out.println ("Insufficient Resources");
+                                }
+                                while (value != resources)
+                                {
+                                    System.out.print ("How much hp would you like to heal? ");
+                                    value = sc.nextInt();
+                                    if (resources >= value)
+                                    {
+                                        hp += value;
+                                        resources -= value;
+                                    }
+                                    else {
+                                        System.out.println ("Insufficient Resources");
+                                    }
+                                }
+                            }
+                            if (companion)
+                            {
+                                enemyHP -= companionDMG;
+                                System.out.println("Your companion strike at the dragon dealing " + DMG + " damage");
+                            }
+                            if (enemyHP > 0 && battle)
+                            {
+                                int value = rand.nextInt(6) + 1;
+                                if (decision == 2)
+                                {
+                                    if (companion)
+                                    {
+                                        boolean target = rand.nextBoolean();
+                                        if (target)
+                                        {
+                                            System.out.println ("The enemy strikes, dealing " + (value - 1) + " damage");
+                                            hp -= (value - 1);
+                                        }
+                                        else
+                                        {
+                                            System.out.println ("The enemy strikes your companion, dealing " + (value - 1) + " damage");
+                                            companionHP -= (value - 1);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        hp -= (value - 1);
+                                        System.out.println("The dragon strikes, dealing " + (value - 1) + " damage");
+                                    }
+                                }
+                                else
+                                {
+                                    hp -= value;
+                                    System.out.println ("The dragon strikes, dealing " + value + " damage");
+                                }
+                            }
+                            if (enemyHP <= 0)
+                            {
+                                System.out.println ("You have successfully defeated the dragon\n" +
+                                        "Some parts of it seem usable, so you take them");
+                                if (companion)
+                                {
+                                    resources += 5;
+                                }
+                                else
+                                {
+                                    resources += 10;
+                                }
+                                System.out.println ("Resources: " + resources);
+                            }
+                        }
+                        if (hp <= 0)
+                        {
+                            System.out.println ("You have died");
+                            play = false;
+                        }
+                        System.out.println ("Having defeated the dragon, you now descend the mountain, and arrive on the other side");
                     }
-                    else if (decision == 2)
+                    else if (decision == 2 && play)
                     {
                         //Scene 6 - caves
                         int path = 0;
                         System.out.println ("You continue walking and make your way into the entrance of the cave system");
-                        System.out.println ("From their you see 3 paths you can take to get deeper into the caves");
-                        System.out.println ("You can either go left, right, or forward.\n Which direction do you want to go in?");
-                        System.out.println ("[1] Left\n[2] Right\n[3] Forward");
 
+                        while (path < 20 && play)
+                        {
+                            System.out.println("You see 3 paths you can take to get deeper into the caves");
+                            System.out.println("You can either go left, right, or forward.\n Which direction do you want to go in?");
+                            System.out.println("[1] Left\n[2] Right\n[3] Forward");
+                            int value = sc.nextInt();
+                            path += value;
+
+                            if (path == 16)
+                            {
+                                //Scene 7 - Secret Ending - Hell
+                            }
+                            else if (path ==11)
+                            {
+                                //Get OP weapon
+                                System.out.println ("As you enter the cavern, you notice a majestic blade embedded into the stone." +
+                                        "\nIt seems far more powerful than the weapon you are currently wielding");
+                                System.out.println ("Would you like to take it?\n[1] Yes\n[2] No");
+                                value = sc.nextInt();
+                                if (companion && value == 1)
+                                {
+                                    System.out.println ("Your old weapon seems more powerful than your companion's weapon.\n" +
+                                            "Would you like to give it to them?\n[1] Yes\n [2] No");
+                                    value = sc.nextInt();
+                                    if (value == 1)
+                                    {
+                                        companionDMG = DMG;
+                                        DMG = 15;
+                                        System.out.println ("DMG: " + DMG + "\nCompanion DMG: " + companionDMG);
+                                    }
+                                    else
+                                    {
+                                        DMG = 15;
+                                        System.out.println ("DMG: " + DMG + "\nCompanion DMG: " + companionDMG);
+                                    }
+                                }
+                                else
+                                {
+                                    System.out.println ("Distrustful of the majestic blade, you ignore it");
+                                    if (companion)
+                                    {
+                                        companionDMG = 15;
+                                        System.out.println ("Seeing that you ignored the majestic weapon, your companion takes it");
+                                        System.out.println ("Companion: \"I'll be taking this, since you don't want it\"");
+                                    }
+                                }
+                            }
+                            else if (path % 7 == 0)
+                            {
+                                System.out.println ("You encounter some abandoned items, they seem like they could be useful resources.");
+                                if (companion)
+                                {
+                                    resources += 3;
+                                    System.out.println ("Resources: " + resources);
+                                }
+                                else
+                                {
+                                    resources += 6;
+                                    System.out.println ("Resources: " + resources);
+                                }
+                            }
+                            else if (path % 5 == 0)
+                            {
+                                battle = true;
+                                enemyHP = 15;
+                                while (hp >= 0 && enemyHP >= 0 && battle)
+                                {
+                                    System.out.println ("           ____                      ,\n" +
+                                            "          /---.'.__             ____//\n" +
+                                            "               '--.\\           /.---'\n" +
+                                            "          _______  \\\\         //\n" +
+                                            "        /.------.\\  \\|      .'/  ______\n" +
+                                            "       //  ___  \\ \\ ||/|\\  //  _/_----.\\__\n" +
+                                            "      |/  /.-.\\  \\ \\:|< >|// _/.'..\\   '--'\n" +
+                                            "         //   \\'. | \\'.|.'/ /_/ /  \\\\\n" +
+                                            "        //     \\ \\_\\/\" ' ~\\-'.-'    \\\\\n" +
+                                            "       //       '-._| :H: |'-.__     \\\\\n" +
+                                            "      //           (/'==='\\)'-._\\     ||\n" +
+                                            "      ||                        \\\\    \\|\n" +
+                                            "      ||                         \\\\    '\n" +
+                                            "snd   |/                          \\\\\n" +
+                                            "                                   ||\n" +
+                                            "                                   ||\n" +
+                                            "                                   \\\\\n" +
+                                            "                                    '\n");
+                                    System.out.println ("Spider HP: " + enemyHP + "\nYour HP:" + hp + "\nResources: " + resources);
+                                    System.out.println ("What would you like to do?\n[1] Attack\n[2] Block\n[3] Run\n" +
+                                            "[4] Heal - 1 resource = 1 hp");
+                                    int battleDecision = sc.nextInt();
+                                    if (battleDecision == 1)
+                                    {
+                                        enemyHP -= DMG;
+                                        System.out.println("You strike at the spider dealing " + DMG + " damage");
+                                    }
+                                    else if (battleDecision == 3)
+                                    {
+                                        if (rand.nextInt() > 7)
+                                        {
+                                            System.out.println ("You successfully run away");
+                                            battle = false;
+                                        }
+                                        else
+                                        {
+                                            System.out.println ("Your attempt to run failed");
+                                        }
+                                    }
+                                    else if (battleDecision == 2)
+                                    {
+                                        System.out.println ("You put up your guard");
+                                    }
+                                    else if (battleDecision == 4)
+                                    {
+                                        System.out.print ("How much hp would you like to heal? ");
+                                        value = sc.nextInt();
+                                        if (resources >= value)
+                                        {
+                                            hp += value;
+                                            resources -= value;
+                                        }
+                                        else {
+                                            System.out.println ("Insufficient Resources");
+                                        }
+                                        while (value != resources)
+                                        {
+                                            System.out.print ("How much hp would you like to heal? ");
+                                            value = sc.nextInt();
+                                            if (resources >= value)
+                                            {
+                                                hp += value;
+                                                resources -= value;
+                                            }
+                                            else {
+                                                System.out.println ("Insufficient Resources");
+                                            }
+                                        }
+                                    }
+                                    if (companion)
+                                    {
+                                        enemyHP -= companionDMG;
+                                        System.out.println("Your companion strike at the spider dealing " + DMG + " damage");
+                                    }
+                                    if (enemyHP > 0 && battle)
+                                    {
+                                        value = rand.nextInt(6) + 1;
+                                        if (decision == 2)
+                                        {
+                                            if (companion)
+                                            {
+                                                boolean target = rand.nextBoolean();
+                                                if (target)
+                                                {
+                                                    System.out.println ("The enemy strikes, dealing " + (value - 1) + " damage");
+                                                    hp -= (value - 1);
+                                                }
+                                                else
+                                                {
+                                                    System.out.println ("The enemy strikes your companion, dealing " + (value - 1) + " damage");
+                                                    companionHP -= (value - 1);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                hp -= (value - 1);
+                                                System.out.println("The spider strikes, dealing " + (value - 1) + " damage");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            hp -= value;
+                                            System.out.println ("The spider strikes, dealing " + value + " damage");
+                                        }
+                                    }
+                                    if (enemyHP == 0)
+                                    {
+                                        System.out.println ("You have successfully defeated the Spider.");
+                                    }
+                                }
+                                if (hp <= 0)
+                                {
+                                    System.out.println ("You have died");
+                                    play = false;
+                                }
+                            }
+                            else if (path % 2 == 0)
+                            {
+                                battle = true;
+                                enemy1hp = 10;
+                                enemy2hp = 10;
+                                while (hp >= 0 && (enemy1hp >= 0 || enemy2hp >= 0) && battle) {
+                                    System.out.println("  =/\\                 /\\=\n" +
+                                            "    / \\'._   (\\_/)   _.'/ \\       (_                   _)\n" +
+                                            "   / .''._'--(o.o)--'_.''. \\       /\\                 /\\\n" +
+                                            "  /.' _/ |`'=/ \" \\='`| \\_ `.\\     / \\'._   (\\_/)   _.'/ \\\n" +
+                                            " /` .' `\\;-,'\\___/',-;/` '. '\\   /_.''._'--('.')--'_.''._\\\n" +
+                                            "/.-' jgs   `\\(-V-)/`       `-.\\  | \\_ / `;=/ \" \\=;` \\ _/ |\n" +
+                                            "             \"   \"               \\/  `\\__|`\\___/`|__/`  \\/\n" +
+                                            "                                  `       \\(/|\\)/       `\n" +
+                                            "                                           \" ` \"");
+                                    System.out.println("Enemy 1 HP: " + enemy1hp + "Enemy 2 HP: " + enemy2hp +
+                                            "\nYour HP:" + hp + "\nResources: " + resources);
+                                    if (companion) {
+                                        System.out.println("Companion HP: " + companionHP);
+                                    }
+                                    System.out.println("What would you like to do?\n[1] Attack\n[2] Block\n[3] Run\n" +
+                                            "[4] Heal - 1 resource = 1 hp");
+                                    int battleDecision = sc.nextInt();
+                                    if (battleDecision == 1) {
+                                        System.out.println("Which enemy would you like to attack");
+                                        int target = sc.nextInt();
+                                        if (target == 1) {
+                                            enemy1hp -= DMG;
+                                            System.out.println("You strike at the enemy dealing " + DMG + " damage");
+                                        }
+                                    } else if (battleDecision == 3) {
+                                        if (rand.nextInt() > 7) {
+                                            System.out.println("You successfully run away");
+                                            battle = false;
+                                        } else {
+                                            System.out.println("Your attempt to run failed");
+                                        }
+                                    } else if (battleDecision == 2) {
+                                        System.out.println("You put up your guard");
+                                    } else if (battleDecision == 4) {
+                                        System.out.print("How much hp would you like to heal? ");
+                                        value = sc.nextInt();
+                                        if (resources >= value) {
+                                            hp += value;
+                                            resources -= value;
+                                        } else {
+                                            System.out.println("Insufficient Resources");
+                                        }
+                                        while (value != resources) {
+                                            System.out.print("How much hp would you like to heal? ");
+                                            value = sc.nextInt();
+                                            if (resources >= value) {
+                                                hp += value;
+                                                resources -= value;
+                                            } else {
+                                                System.out.println("Insufficient Resources");
+                                            }
+                                        }
+                                    }
+                                    if (companion) {
+                                        if (enemy1hp <= enemy2hp && enemy1hp > 0) {
+                                            System.out.println("The companion strikes enemy 1 dealing " + companionDMG + " damage");
+                                            enemy1hp -= companionDMG;
+                                        } else {
+                                            System.out.println("The companion strikes enemy 2 dealing" + companionDMG + " damage");
+                                            enemy2hp -= companionDMG;
+                                        }
+                                    }
+                                    if (enemy1hp > 0 && battle) {
+                                        value = rand.nextInt(3) + 1;
+                                        if (decision == 2) {
+                                            if (companion) {
+                                                boolean target = rand.nextBoolean();
+                                                if (target) {
+                                                    System.out.println("The enemy strikes, dealing " + (value - 1) + " damage");
+                                                    hp -= (value - 1);
+                                                } else {
+                                                    System.out.println("The enemy strikes your companion, dealing " + (value - 1) + " damage");
+                                                    companionHP -= (value - 1);
+                                                }
+                                            } else {
+                                                hp -= (value - 1);
+                                                System.out.println("The enemy strikes, dealing " + (value - 1) + " damage");
+                                            }
+                                        } else {
+                                            hp -= value;
+                                            System.out.println("The enemy strikes, dealing " + value + " damage");
+                                        }
+                                    }
+                                    if (enemy2hp > 0 && battle) {
+                                        value = rand.nextInt(3) + 1;
+                                        if (decision == 2) {
+                                            if (companion) {
+                                                boolean target = rand.nextBoolean();
+                                                if (target) {
+                                                    System.out.println("The enemy strikes, dealing " + (value - 1) + " damage");
+                                                    hp -= (value - 1);
+                                                } else {
+                                                    System.out.println("The enemy strikes your companion, dealing " + (value - 1) + " damage");
+                                                    companionHP -= (value - 1);
+                                                }
+                                            } else {
+                                                hp -= (value - 1);
+                                                System.out.println("The enemy strikes, dealing " + (value - 1) + " damage");
+                                            }
+                                        } else {
+                                            hp -= value;
+                                            System.out.println("The enemy strikes, dealing " + value + " damage");
+                                        }
+                                        if (enemy1hp <= 0 && enemy2hp <= 0) {
+                                            System.out.println("You have successfully defeated the enemies.\nThey seem to have some" +
+                                                    "useful resources.\n Would you like to take them\n" +
+                                                    "[1] Yes\n[2] No");
+                                            value = sc.nextInt();
+                                            if (value == 1) {
+                                                if (companion) {
+                                                    resources += 3;
+                                                    System.out.println("Resources: " + resources);
+                                                } else {
+                                                    resources += 6;
+                                                    System.out.println("Resources: " + resources);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (hp <= 0) {
+                                        System.out.println("You have died");
+                                        play = false;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                System.out.println ("There appears to be nothing inside of this cavern");
+                            }
+                            if (companion)
+                            {
+                                resources -= 2;
+                                System.out.println ("You have consumed 2 resources\nResources: " + resources);
+                            }
+                            else
+                            {
+                                resources -= 1;
+                                System.out.println ("You have consumed 1 resource\nResources: " + resources);
+                            }
+                            if (resources < 0)
+                            {
+                                System.out.println("You have run out of resources and died");
+                                play = false;
+                            }
+                        }
+                        System.out.println ("You have come out of the caves on the other side of the mountains");
                     }
+                    //Scene 8 - plains + aurora borealis
+
+                    //Scene 9 - The gate + battle with gatekeeper?
 
                     //Once you finish playing it will end here
                     play = false;
-                }
-                else if (menuOption == 2)
-                {
-                    System.out.println("Just select the option you wish to perform.");
-                }
-                else if (menuOption == 3)
-                {
-                    System.out.print("Goodbye");
-                    run = false;
-                }
-
+                }}
+            else if (menuOption == 2)
+            {
+                System.out.println("Just select the option you wish to perform.");
             }
+            else if (menuOption == 3)
+            {
+                System.out.print("Goodbye");
+                run = false;
+            }
+
         }
-    }}
+    }
+}
