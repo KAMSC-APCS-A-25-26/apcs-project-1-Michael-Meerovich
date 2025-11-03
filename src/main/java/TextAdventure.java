@@ -6,7 +6,7 @@ public class TextAdventure
     public static void main(String[] args)
     {
         //Variables
-        int resources=20, hp=50, enemyHP, companionHP=50, DMG=3, companionDMG=3;
+        int resources=20, hp=50, enemyHP, companionHP=50, DMG=3, companionDMG=5;
         Scanner sc = new Scanner(System.in);
         boolean play, companion=false, run = true;
         Random rand = new Random();
@@ -1309,8 +1309,35 @@ public class TextAdventure
                             play = false;
                         }
                         //Scene 5 battle 2
-                        System.out.println ("You crest the mountains, and once again stumble on a nest\nA dragon" +
-                                " swoops down and attacks you");
+                        System.out.println ("You crest the mountains, and once again stumble on a nest\nLodged in the middle" +
+                                " of the nest, you find a glorious silver spear, it seems a far better weapon than the one you currently wield");
+                        System.out.println ("Would you like to take it\n[1] Yes\n[2] No");
+                        int value = sc.nextInt();
+                        if (value == 1)
+                        {
+                            if (companion)
+                            {
+                                if (companionDMG < DMG)
+                                {
+                                    System.out.println ("Since your old weapon is still better than your companion's weapon, you give it to them");
+                                    companionDMG = DMG;
+                                    System.out.println ("Companion DMG: " + companionDMG);
+                                }
+                            }
+                            DMG = 15;
+                            System.out.println ("You take the spear\nDMG: " + DMG);
+                        }
+                        else if (value == 2)
+                        {
+                            System.out.println ("Distrustful of the beautiful spear, you ignore it");
+                            if (companion)
+                            {
+                                System.out.println ("Since you don't seem to want the spear, I'll take it");
+                                companionDMG = 15;
+                                System.out.println ("Companion DMG: " + DMG);
+                            }
+                        }
+                        System.out.println ("A dragon sees you in its nest, swoops down and attacks you");
                         battle = true;
                         enemyHP = 70;
                         while (hp >= 0 && enemyHP >= 0 && battle)
@@ -1356,7 +1383,7 @@ public class TextAdventure
                             else if (battleDecision == 4)
                             {
                                 System.out.print ("How much hp would you like to heal? ");
-                                int value = sc.nextInt();
+                                value = sc.nextInt();
                                 if (resources >= value)
                                 {
                                     hp += value;
@@ -1386,7 +1413,7 @@ public class TextAdventure
                             }
                             if (enemyHP > 0 && battle)
                             {
-                                int value = rand.nextInt(6) + 1;
+                                value = rand.nextInt(6) + 1;
                                 if (decision == 2)
                                 {
                                     if (companion)
@@ -1454,6 +1481,137 @@ public class TextAdventure
                             if (path == 16)
                             {
                                 //Scene 7 - Secret Ending - Hell
+                                //Play game with devils - if you can survive certain amount of time against them, you can stay and live in luxury
+                                System.out.println ("To your surprise, as you enter this cavern you find a gate, and no other tunnels out");
+                                System.out.println ("As you look behind you, shockingly, the tunnel you just entered from has vanished");
+                                if (companion)
+                                {
+                                    System.out.println ("Companion: \"Well this is creepy. But I guess the only way out is through\"");
+                                }
+                                System.out.println ("In spite of your inhibitions, since there are no other options. You go through the gate");
+                                System.out.println ("On the other side you find yourself in a strange land.\n" +
+                                        "Two demons approach you");
+                                System.out.println ("Demon 1: \"Let's play a game, you and I\"");
+                                System.out.println ("Demon 2: \"If you survive 5 rounds against us in a battle, we will grant you an endless life of luxury\"");
+                                System.out.println ("Demon 1: \"But if you fail, your soul will be forfeit\"");
+                                System.out.println ("Demon 2: \"It's not like you have a choice. By entering here, you agreed to never leave\"");
+                                enemy1hp = 100;
+                                enemy2hp = 100;
+                                for (int round = 0 ; round < 5 ; round++)
+                                {
+                                    System.out.println("                                ,   ,\n" +
+                                            "   ,    ,    /\\   /\\             /(   )\\\n" +
+                                            "  /( /\\ )\\  _\\ \\_/ /_            \\ \\_/ /   , /\\ ,\n" +
+                                            "  |\\_||_/| < \\_   _/ >           /_   _\\  /| || |\\\n" +
+                                            "  \\______/  \\|0   0|/           | \\> ");
+                                    System.out.println("Enemy 1 HP: " + enemy1hp + "Enemy 2 HP: " + enemy2hp +
+                                            "\nYour HP:" + hp + "\nResources: " + resources);
+                                    if (companion) {
+                                        System.out.println("Companion HP: " + companionHP);
+                                    }
+                                    System.out.println("What would you like to do?\n[1] Attack\n[2] Block\n" +
+                                            "[3] Heal - 1 resource = 1 hp");
+                                    int battleDecision = sc.nextInt();
+                                    if (battleDecision == 1) {
+                                        System.out.println("Which enemy would you like to attack");
+                                        int target = sc.nextInt();
+                                        if (target == 1) {
+                                            enemy1hp -= DMG;
+                                            System.out.println("You strike at the enemy dealing " + DMG + " damage");
+                                        }
+                                    }
+                                    else if (battleDecision == 2)
+                                    {
+                                        System.out.println("You put up your guard");
+                                    }
+                                    else if (battleDecision == 3) {
+                                        System.out.print("How much hp would you like to heal? ");
+                                        value = sc.nextInt();
+                                        if (resources >= value) {
+                                            hp += value;
+                                            resources -= value;
+                                        } else {
+                                            System.out.println("Insufficient Resources");
+                                        }
+                                        while (value > resources) {
+                                            System.out.print("How much hp would you like to heal? ");
+                                            value = sc.nextInt();
+                                            if (resources >= value) {
+                                                hp += value;
+                                                resources -= value;
+                                            } else {
+                                                System.out.println("Insufficient Resources");
+                                            }
+                                        }
+                                    }
+                                    if (companion) {
+                                        if (enemy1hp <= enemy2hp && enemy1hp > 0) {
+                                            System.out.println("The companion strikes enemy 1 dealing " + companionDMG + " damage");
+                                            enemy1hp -= companionDMG;
+                                        } else {
+                                            System.out.println("The companion strikes enemy 2 dealing" + companionDMG + " damage");
+                                            enemy2hp -= companionDMG;
+                                        }
+                                    }
+                                    if (enemy1hp > 0 && battle) {
+                                        value = rand.nextInt(20) + 1;
+                                        if (decision == 2) {
+                                            if (companion) {
+                                                boolean target = rand.nextBoolean();
+                                                if (target) {
+                                                    System.out.println("The enemy strikes, dealing " + (value - 1) + " damage");
+                                                    hp -= (value - 1);
+                                                } else {
+                                                    System.out.println("The enemy strikes your companion, dealing " + (value - 1) + " damage");
+                                                    companionHP -= (value - 1);
+                                                }
+                                            } else {
+                                                hp -= (value - 1);
+                                                System.out.println("The enemy strikes, dealing " + (value - 1) + " damage");
+                                            }
+                                        } else {
+                                            hp -= value;
+                                            System.out.println("The enemy strikes, dealing " + value + " damage");
+                                        }
+                                    }
+                                    if (enemy2hp > 0 && battle) {
+                                        value = rand.nextInt(20) + 1;
+                                        if (decision == 2) {
+                                            if (companion) {
+                                                boolean target = rand.nextBoolean();
+                                                if (target) {
+                                                    System.out.println("The enemy strikes, dealing " + (value - 1) + " damage");
+                                                    hp -= (value - 1);
+                                                } else {
+                                                    System.out.println("The enemy strikes your companion, dealing " + (value - 1) + " damage");
+                                                    companionHP -= (value - 1);
+                                                }
+                                            } else {
+                                                hp -= (value - 1);
+                                                System.out.println("The enemy strikes, dealing " + (value - 1) + " damage");
+                                            }
+                                        } else {
+                                            hp -= value;
+                                            System.out.println("The enemy strikes, dealing " + value + " damage");
+                                        }
+                                    }
+                                }
+                                if (hp <= 0)
+                                {
+                                    System.out.println ("After everything that happened, your soul is now forfeight");
+                                }
+                                else
+                                {
+                                    System.out.println ("Demon 1: \"Well played\"");
+                                    System.out.println ("Demon 2: \"We'll keep to our word\"");
+                                    System.out.println ("Demon 1: \"Eternal luxury for you it will be\"");
+                                    if (companion) {
+                                        System.out.println("Companion : \"It's a bit disappointing that we'll never reach our destination, but somehow it doesn't seem so bad\"");
+                                    }
+                                    System.out.println ("Your soul calms, and seems okay with remaining, so you accept the eternity of luxury");
+                                    System.out.println ("You never quite feel truly fulfilled, but, everything seems good enough, so you don't care too much");
+                                    play = false;
+                                }
                             }
                             else if (path ==11)
                             {
@@ -1462,31 +1620,28 @@ public class TextAdventure
                                         "\nIt seems far more powerful than the weapon you are currently wielding");
                                 System.out.println ("Would you like to take it?\n[1] Yes\n[2] No");
                                 value = sc.nextInt();
-                                if (companion && value == 1)
+                                if (value == 1)
                                 {
-                                    System.out.println ("Your old weapon seems more powerful than your companion's weapon.\n" +
-                                            "Would you like to give it to them?\n[1] Yes\n [2] No");
-                                    value = sc.nextInt();
-                                    if (value == 1)
-                                    {
-                                        companionDMG = DMG;
-                                        DMG = 15;
-                                        System.out.println ("DMG: " + DMG + "\nCompanion DMG: " + companionDMG);
-                                    }
-                                    else
-                                    {
-                                        DMG = 15;
-                                        System.out.println ("DMG: " + DMG + "\nCompanion DMG: " + companionDMG);
-                                    }
-                                }
-                                else
-                                {
-                                    System.out.println ("Distrustful of the majestic blade, you ignore it");
                                     if (companion)
                                     {
+                                        if (companionDMG < DMG)
+                                        {
+                                            System.out.println ("Since your old weapon is still better than your companion's weapon, you give it to them");
+                                            companionDMG = DMG;
+                                            System.out.println ("Companion DMG: " + companionDMG);
+                                        }
+                                    }
+                                    DMG = 15;
+                                    System.out.println ("You take the spear\nDMG: " + DMG);
+                                }
+                                else if (value == 2)
+                                {
+                                    System.out.println ("Distrustful of the beautiful sword, you ignore it");
+                                    if (companion)
+                                    {
+                                        System.out.println ("Since you don't seem to want the sword, I'll take it");
                                         companionDMG = 15;
-                                        System.out.println ("Seeing that you ignored the majestic weapon, your companion takes it");
-                                        System.out.println ("Companion: \"I'll be taking this, since you don't want it\"");
+                                        System.out.println ("Companion DMG: " + DMG);
                                     }
                                 }
                             }
@@ -1565,7 +1720,7 @@ public class TextAdventure
                                         else {
                                             System.out.println ("Insufficient Resources");
                                         }
-                                        while (value != resources)
+                                        while (value > resources)
                                         {
                                             System.out.print ("How much hp would you like to heal? ");
                                             value = sc.nextInt();
@@ -1674,7 +1829,7 @@ public class TextAdventure
                                         } else {
                                             System.out.println("Insufficient Resources");
                                         }
-                                        while (value != resources) {
+                                        while (value > resources) {
                                             System.out.print("How much hp would you like to heal? ");
                                             value = sc.nextInt();
                                             if (resources >= value) {
@@ -1780,8 +1935,239 @@ public class TextAdventure
                         System.out.println ("You have come out of the caves on the other side of the mountains");
                     }
                     //Scene 8 - plains + aurora borealis
+                    System.out.println (" ` : | | | |:  ||  :     `  :  |  |+|: | : : :|   .        `              .\n" +
+                            "      ` : | :|  ||  |:  :    `  |  | :| : | : |:   |  .                    :\n" +
+                            "         .' ':  ||  |:  |  '       ` || | : | |: : |   .  `           .   :.\n" +
+                            "                `'  ||  |  ' |   *    ` : | | :| |*|  :   :               :|\n" +
+                            "        *    *       `  |  : :  |  .      ` ' :| | :| . : :         *   :.||\n" +
+                            "             .`            | |  |  : .:|       ` | || | : |: |          | ||\n" +
+                            "      '          .         + `  |  :  .: .         '| | : :| :    .   |:| ||\n" +
+                            "         .                 .    ` *|  || :       `    | | :| | :      |:| |\n" +
+                            " .                .          .        || |.: *          | || : :     :|||\n" +
+                            "        .            .   . *    .   .  ` |||.  +        + '| |||  .  ||`\n" +
+                            "     .             *              .     +:`|!             . ||||  :.||`\n" +
+                            " +                      .                ..!|*          . | :`||+ |||`\n" +
+                            "     .                         +      : |||`        .| :| | | |.| ||`     .\n" +
+                            "       *     +   '               +  :|| |`     :.+. || || | |:`|| `\n" +
+                            "                            .      .||` .    ..|| | |: '` `| | |`  +\n" +
+                            "  .       +++                      ||        !|!: `       :| |\n" +
+                            "              +         .      .    | .      `|||.:      .||    .      .    `\n" +
+                            "          '                           `|.   .  `:|||   + ||'     `\n" +
+                            "  __    +      *                         `'       `'|.    `:\n" +
+                            "\"'  `---\"\"\"----....____,..^---`^``----.,.___          `.    `.  .    ____,.,-\n" +
+                            "    ___,--'\"\"`---\"'   ^  ^ ^        ^       \"\"\"'---,..___ __,..---\"\"'\n" +
+                            "--\"'                           ^                         ``--..,__ D. Rice");
+                    System.out.println ("Once you arrived on the other side of the mountains, you now see a majestic sight." +
+                            "\nAbove the plains, in the sky, you see a beautiful path.\nSomehow, you can tell that " +
+                            "if you follow that path, you will arrive at the destination you've been seeking.");
+                    if (companion)
+                    {
+                        System.out.println ("Companion: \"It's there isn't it. It's even more beautiful than I imagined\"");
+                        System.out.println ("\"Probably. Shall we.\"");
+                    }
 
-                    //Scene 9 - The gate + battle with gatekeeper?
+                    System.out.println ("You walk, following the path in the sky, until eventually you see something.\n" +
+                            "The place that the light goes to. An enormous majestic gate.");
+                    //The gate + battle with gatekeeper?
+                    System.out.println (" ==                     ==\n" +
+                            "                 <^\\()/^>               <^\\()/^>\n" +
+                            "                  \\/  \\/                 \\/  \\/\n" +
+                            "                   /__\\      .  '  .      /__\\ \n" +
+                            "      ==            /\\    .     |     .    /\\            ==\n" +
+                            "   <^\\()/^>       !_\\/       '  |  '       \\/_!       <^\\()/^>\n" +
+                            "    \\/  \\/     !_/I_||  .  '   \\'/   '  .  ||_I\\_!     \\/  \\/\n" +
+                            "     /__\\     /I_/| ||      -== + ==-      || |\\_I\\     /__\\\n" +
+                            "     /_ \\   !//|  | ||  '  .   /.\\   .  '  || |  |\\\\!   /_ \\\n" +
+                            "    (-   ) /I/ |  | ||       .  |  .       || |  | \\I\\ (=   )\n" +
+                            "     \\__/!//|  |  | ||    '     |     '    || |  |  |\\\\!\\__/\n" +
+                            "     /  \\I/ |  |  | ||       '  .  '    *  || |  |  | \\I/  \\\n" +
+                            "    {_ __}  |  |  | ||                     || |  |  |  {____}\n" +
+                            " _!__|= ||  |  |  | ||   *      +          || |  |  |  ||  |__!_\n" +
+                            " _I__|  ||__|__|__|_||          A          ||_|__|__|__||- |__I_\n" +
+                            " -|--|- ||--|--|--|-||       __/_\\__  *    ||-|--|--|--||= |--|-\n" +
+                            "  |  |  ||  |  |  | ||      /\\-'o'-/\\      || |  |  |  ||  |  |\n" +
+                            "  |  |= ||  |  |  | ||     _||:<_>:||_     || |  |  |  ||= |  |\n" +
+                            "  |  |- ||  |  |  | || *  /\\_/=====\\_/\\  * || |  |  |  ||= |  |\n" +
+                            "  |  |- ||  |  |  | ||  __|:_:_[I]_:_:|__  || |  |  |  ||- |  | \n" +
+                            " _|__|  ||__|__|__|_||:::::::::::::::::::::||_|__|__|__||  |__|_\n" +
+                            " -|--|= ||--|--|--|-||:::::::::::::::::::::||-|--|--|--||- |--|-\n" +
+                            "  jgs|- ||  |  |  | ||:::::::::::::::::::::|| |  |  |  ||= |  | \n" +
+                            "~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^~~~~~~~~~");
+                    System.out.println ("you approach the gate, but as you try to enter a figure steps out and stops you");
+                    System.out.println (" .--.-.\n" +
+                            " ( (    )__ \n" +
+                            "(_,  \\ ) ,_)\n" +
+                            "  '- \\\\---'\n" +
+                            "     _\\\\\n" +
+                            "    \\\\ .\n" +
+                            "    '.\\:.'\n" +
+                            "    .':`(\\\n" +
+                            "      '  \\\\\n" +
+                            "          \\\\\n" +
+                            "           \\\\\n" +
+                            "            \\\\\n" +
+                            "             \\\\\n" +
+                            "              \\\\\n" +
+                            "               \\\\  _\n" +
+                            "                \\\\/@)\n" +
+                            "                /(&\\\n" +
+                            "               (@(\\&\\       <*****> \n" +
+                            "                ` \\/ \\.=^=.  .\"\"\".  .=^=.\n" +
+                            "                   \\  \\```\\\\(/a a\\)//```\\\\\n" +
+                            "                    \\  \\    (  L  )      }}\n" +
+                            "                    {\\  \\ __ \\ = /       }}\n" +
+                            "                    {{\\  '--,/'-'\\,---.  }}\n" +
+                            "                    {{ \\ |`-._/\\_.-'|  \\ }}\n" +
+                            "                    {{  \\|    ||    |\\  \\}}\n" +
+                            "                    {{   |___o()o___| >  )}\n" +
+                            "                    {{   |__((<>))__|` .'}}\n" +
+                            "                    {{   \\   o\\/o   /``  }}\n" +
+                            "                    {{  ,'\\   ||   / ',  }}\n" +
+                            "                    {{.'   \\  ||  /|   '.}}\n" +
+                            "                           |'.||.' |\n" +
+                            "                           |    :  |\n" +
+                            "                           |    :  |\n" +
+                            "                           |    :  |\n" +
+                            "                           |    :  |\n" +
+                            "                           |    :  |\n" +
+                            "                           |    :  |\n" +
+                            "                      jgs  |____:__|\n" +
+                            "                            (_/ \\_)");
+                    System.out.println ("\"Bound ones such as yourselves are forbidden to pass through these gates.\n" +
+                            "If you attempt to pass, I will be forced to eliminate you\nAnd do not hope for a drawn out battle" +
+                            "for I grow stronger the longer I remain in battle");
+                    enemyHP = 100;
+                    for (int enemyDMG = 1 ; enemyHP > 0  && hp > 0; enemyDMG++)
+                    {
+                        System.out.println (" .--.-.\\n\" +\n" +
+                                "                            \" ( (    )__ \\n\" +\n" +
+                                "                            \"(_,  \\\\ ) ,_)\\n\" +\n" +
+                                "                            \"  '- \\\\\\\\---'\\n\" +\n" +
+                                "                            \"     _\\\\\\\\\\n\" +\n" +
+                                "                            \"    \\\\\\\\ .\\n\" +\n" +
+                                "                            \"    '.\\\\:.'\\n\" +\n" +
+                                "                            \"    .':`(\\\\\\n\" +\n" +
+                                "                            \"      '  \\\\\\\\\\n\" +\n" +
+                                "                            \"          \\\\\\\\\\n\" +\n" +
+                                "                            \"           \\\\\\\\\\n\" +\n" +
+                                "                            \"            \\\\\\\\\\n\" +\n" +
+                                "                            \"             \\\\\\\\\\n\" +\n" +
+                                "                            \"              \\\\\\\\\\n\" +\n" +
+                                "                            \"               \\\\\\\\  _\\n\" +\n" +
+                                "                            \"                \\\\\\\\/@)\\n\" +\n" +
+                                "                            \"                /(&\\\\\\n\" +\n" +
+                                "                            \"               (@(\\\\&\\\\       <*****> \\n\" +\n" +
+                                "                            \"                ` \\\\/ \\\\.=^=.  .\\\"\\\"\\\".  .=^=.\\n\" +\n" +
+                                "                            \"                   \\\\  \\\\```\\\\\\\\(/a a\\\\)//```\\\\\\\\\\n\" +\n" +
+                                "                            \"                    \\\\  \\\\    (  L  )      }}\\n\" +\n" +
+                                "                            \"                    {\\\\  \\\\ __ \\\\ = /       }}\\n\" +\n" +
+                                "                            \"                    {{\\\\  '--,/'-'\\\\,---.  }}\\n\" +\n" +
+                                "                            \"                    {{ \\\\ |`-._/\\\\_.-'|  \\\\ }}\\n\" +\n" +
+                                "                            \"                    {{  \\\\|    ||    |\\\\  \\\\}}\\n\" +\n" +
+                                "                            \"                    {{   |___o()o___| >  )}\\n\" +\n" +
+                                "                            \"                    {{   |__((<>))__|` .'}}\\n\" +\n" +
+                                "                            \"                    {{   \\\\   o\\\\/o   /``  }}\\n\" +\n" +
+                                "                            \"                    {{  ,'\\\\   ||   / ',  }}\\n\" +\n" +
+                                "                            \"                    {{.'   \\\\  ||  /|   '.}}\\n\" +\n" +
+                                "                            \"                           |'.||.' |\\n\" +\n" +
+                                "                            \"                           |    :  |\\n\" +\n" +
+                                "                            \"                           |    :  |\\n\" +\n" +
+                                "                            \"                           |    :  |\\n\" +\n" +
+                                "                            \"                           |    :  |\\n\" +\n" +
+                                "                            \"                           |    :  |\\n\" +\n" +
+                                "                            \"                           |    :  |\\n\" +\n" +
+                                "                            \"                      jgs  |____:__|\\n\" +\n" +
+                                "                            \"                            (_/ \\\\_)");
+                        System.out.println ("Spider HP: " + enemyHP + "\nYour HP:" + hp + "\nResources: " + resources);
+                        System.out.println ("What would you like to do?\n[1] Attack\n[2] Block\n" +
+                                "[3] Heal - 1 resource = 1 hp");
+                        int battleDecision = sc.nextInt();
+                        if (battleDecision == 1)
+                        {
+                            enemyHP -= DMG;
+                            System.out.println("You strike at the Gatekeeper dealing " + DMG + " damage");
+                        }
+                        else if (battleDecision == 2)
+                        {
+                            System.out.println ("You put up your guard");
+                        }
+                        else if (battleDecision == 3)
+                        {
+                            System.out.print ("How much hp would you like to heal? ");
+                            int value = sc.nextInt();
+                            if (resources >= value)
+                            {
+                                hp += value;
+                                resources -= value;
+                            }
+                            else {
+                                System.out.println ("Insufficient Resources");
+                            }
+                            while (value != resources)
+                            {
+                                System.out.print ("How much hp would you like to heal? ");
+                                value = sc.nextInt();
+                                if (resources > value)
+                                {
+                                    hp += value;
+                                    resources -= value;
+                                }
+                                else {
+                                    System.out.println ("Insufficient Resources");
+                                }
+                            }
+                        }
+                        if (companion)
+                        {
+                            enemyHP -= companionDMG;
+                            System.out.println("Your companion strike at the Gatekeeper dealing " + companionDMG + " damage");
+                        }
+                        if (enemyHP > 0 && battle)
+                        {
+                            if (decision == 2)
+                            {
+                                if (companion)
+                                {
+                                    boolean target = rand.nextBoolean();
+                                    if (target)
+                                    {
+                                        System.out.println ("The Gatekeeper strikes, dealing " + enemyDMG + " damage");
+                                        hp -= (enemyDMG - 1);
+                                    }
+                                    else
+                                    {
+                                        System.out.println ("The enemy strikes your companion, dealing " + enemyDMG + " damage");
+                                        companionHP -= (enemyDMG - 1);
+                                    }
+                                }
+                                else
+                                {
+                                    hp -= (enemyDMG - 1);
+                                    System.out.println("The Gatekeeper strikes, dealing " + (enemyDMG - 1) + " damage");
+                                }
+                            }
+                            else
+                            {
+                                hp -= enemyDMG;
+                                System.out.println ("The Gatekeeper strikes, dealing " + enemyDMG + " damage");
+                            }
+                        }
+                        if (hp <= 0)
+                        {
+                            play = false;
+                            System.out.println ("You have perished in your battle against the Gatekeeper, your soul forever lost to the abyss");
+                        }
+                    }
+                    if (play)
+                    {
+                        if (companion)
+                        {
+                            System.out.println ("Companion: \"We really did it didn't we\"");
+                            System.out.println ("\"Yes, I suppose we did. We should go through shouldn't we.\"");
+                        }
+                        System.out.println ("You step through the gate into that which lies beyond, and your soul finally knew peace\n" +
+                                "For it had finally reached the destination that it had so longed for.");
+                    }
 
                     //Once you finish playing it will end here
                     play = false;
