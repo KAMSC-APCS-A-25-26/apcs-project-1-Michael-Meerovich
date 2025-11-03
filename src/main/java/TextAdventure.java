@@ -249,7 +249,7 @@ public class TextAdventure
                             }
                         }
                         battle = true;
-                        while (hp >= 0 && enemyHP >= 0 && battle)
+                        while (hp > 0 && enemyHP > 0 && battle)
                         {
                             System.out.println (" /\\_[]_/\\\n" +
                                     "              |] _||_ [|\n" +
@@ -300,7 +300,7 @@ public class TextAdventure
                                 else {
                                     System.out.println ("Insufficient Resources");
                                 }
-                                while (value != resources)
+                                while (value >= resources)
                                 {
                                     System.out.print ("How much hp would you like to heal? ");
                                     value = sc.nextInt();
