@@ -523,6 +523,7 @@ public class TextAdventure
                             "                 ~                  ,'  \\|//            `'      \n" +
                             "                ~           ~       ; `. \"\"                   ..\n" +
                             "                                     `.  )     \\\"       .--\"\"\"");
+                    //Lets you choose to either fast travel and lose some resources, or take slower route and not lose them
                     System.out.println("As you approach the river, you notice your reflection" +
                             ", you look human, though, not quite. You feel as if you look less real than you should. Less alive." +
                             "\nYou decide that you should go along the river. \nWhat method of travel would you like to do?" +
@@ -667,6 +668,7 @@ public class TextAdventure
                         {
                             System.out.println ("After the battle with the wolf, you continue on your path.");
                         }
+                        //Trick people into thinking they'll need to fight another battle without an actual battle
                         System.out.println ("As you continue walking, eventually, you hear yet more rustling in the brush\n" +
                                 "Would you like to investigate?\n[1] Yes\n[2] No");
                         value = sc.nextLine();
@@ -721,8 +723,8 @@ public class TextAdventure
                             "_  ^      .  -    . \\.|");
                     System.out.println ("You begin to walk, and make your way through the desert\n" +
                             "Eventually, you notice someone else leaning against a cactus");
-                    //Maybe put some ascii art of the companion here
-                    //Major decision 1
+                    //Major decision 1 - either take companion with you and gain help in battles, or rob them and get increased resource gain
+                    //The companion will fight you if you try to rob them
                     System.out.println ("As you look at them, you realize that they have a bunch of stuff that could be very useful");
                     System.out.println ("They notice you and say: \"Hey could you help me out here\"");
                     System.out.println ("How would you like to reply\n[1] Why should I?\n[2] Sure - 5 resources\n" +
@@ -1143,7 +1145,7 @@ public class TextAdventure
                     //Encounter some bandits - then go to the mountains - second major decision - cave or cliff
                     //Second major decision
                     //If choose to go to cliffs it is more straightforward, and you're guaranteed an OP weapon, however battles are harder
-                    //If choose to go to caves, it's less straightforward,
+                    //If choose to go to caves, it's less straightforward and you're not guaranteed an OP weapon, but battles are easier
                     String decision="";
                     if (play) {
                         if (companion) {
@@ -1251,7 +1253,7 @@ public class TextAdventure
                             System.out.println("You have died");
                             play = false;
                         }
-                        //Scene 5 battle 2
+                        //Get OP weapon
                         if (play) {
                             System.out.println("You crest the mountains, and once again stumble on a nest\nLodged in the middle" +
                                     " of the nest, you find a glorious silver spear, it seems a far better weapon than the one you currently wield");
@@ -1277,6 +1279,7 @@ public class TextAdventure
                                 }
                             }
                         }
+                        //Scene 5 battle 2
                         if (play) {
                             System.out.println("A dragon sees you in its nest, swoops down and attacks you");
                             battle = true;
@@ -1684,6 +1687,7 @@ public class TextAdventure
                             }
                             else if (path % 2 == 0)
                             {
+                                //Easy battle against 2 enemies
                                 battle = true;
                                 enemy1hp = 10;
                                 enemy2hp = 10;
@@ -1893,7 +1897,7 @@ public class TextAdventure
 
                         System.out.println("You walk, following the path in the sky, until eventually you see something.\n" +
                                 "The place that the light goes to. An enormous majestic gate.");
-                        //The gate + battle with gatekeeper?
+                        //The gate + battle with gatekeeper - final boss
                         System.out.println(" ==                     ==\n" +
                                 "                 <^\\()/^>               <^\\()/^>\n" +
                                 "                  \\/  \\/                 \\/  \\/\n" +
