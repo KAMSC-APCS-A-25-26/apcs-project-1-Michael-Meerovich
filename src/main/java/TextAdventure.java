@@ -1801,7 +1801,36 @@ public class TextAdventure
                             }
                             else
                             {
-                                System.out.println ("There appears to be nothing inside of this cavern");
+                                //Minigame
+                                System.out.println ("Inside of the cavern you notice a dial that seems connected to a box\n" +
+                                        "You can tell that if you input the correct number on the dial you'll get the resources in the box\n" +
+                                        "But you can also tell that if you get the number wrong more than 3 times it will lock permanently");
+                                for (int attempt = 0 ; attempt < 3 ; attempt++)
+                                {
+                                    System.out.println ("Enter your guess (0-9):");
+                                    String guess = sc.nextLine ();
+                                    if (guess.equalsIgnoreCase("7"))
+                                    {
+                                        System.out.println ("You successfully opened the box and took the resources inside");
+                                        if (companion) {
+                                            resources += 3;
+                                        }
+                                        else
+                                        {
+                                            resources += 6;
+                                        }
+                                        System.out.println ("Resources: " + resources);
+                                        attempt = 3;
+                                    }
+                                    else
+                                    {
+                                        System.out.println ("It seems your guess was incorrect");
+                                        if (attempt == 3)
+                                        {
+                                            System.out.println ("Unfortunately, the box became permanently locked");
+                                        }
+                                    }
+                                }
                             }
                             if (play) {
                                 if (companion) {
