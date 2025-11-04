@@ -6,13 +6,13 @@ public class TextAdventure
     public static void main(String[] args)
     {
         //Variables
-        int resources=20, hp=50, enemyHP, companionHP=50, DMG=3, companionDMG=5;
         Scanner sc = new Scanner(System.in);
         boolean play, companion=false, run = true;
         Random rand = new Random();
 
         while (run)
         {
+            int resources=20, hp=50, enemyHP, companionHP=50, DMG=3, companionDMG=5;
             //Title Screen
             System.out.println (" _____             _ _                           _ \n" +
                     "/  ___|           | | |                         | |\n" +
@@ -175,22 +175,11 @@ public class TextAdventure
                             }
                             else if (decision.equalsIgnoreCase("4"))
                             {
-                                System.out.print ("How much hp would you like to heal? ");
-                                String value = sc.nextLine();
-                                //Convert String to int for calculation!!!
-                                int intValue = Integer.parseInt(value);
-                                if (resources > intValue)
-                                {
-                                    hp += intValue;
-                                    resources -= intValue;
-                                }
-                                else {
-                                    System.out.println ("Insufficient Resources");
-                                }
-                                while (intValue < resources)
+                                int intValue;
+                                do
                                 {
                                     System.out.print ("How much hp would you like to heal? ");
-                                    value = sc.nextLine();
+                                    String value = sc.nextLine();
                                     intValue = Integer.parseInt(value);
                                     if (resources >= intValue)
                                     {
@@ -200,7 +189,7 @@ public class TextAdventure
                                     else {
                                         System.out.println ("Insufficient Resources");
                                     }
-                                }
+                                } while (intValue > resources);
                             }
                             if (enemyHP > 0 && battle)
                             {
@@ -256,7 +245,7 @@ public class TextAdventure
                             else
                             {
                                 hp -= (7-value);
-                                System.out.println ("The bandit's attack connects dealing " + (7-value) + "damage");
+                                System.out.println ("The bandit's attack connects dealing " + (7-value) + " damage");
                             }
                         }
                         battle = true;
@@ -302,21 +291,11 @@ public class TextAdventure
                             }
                             else if (decision.equalsIgnoreCase("4"))
                             {
-                                System.out.print ("How much hp would you like to heal? ");
-                                String value = sc.nextLine();
-                                int intValue = Integer.parseInt(value);
-                                if (resources > intValue)
-                                {
-                                    hp += intValue;
-                                    resources -= intValue;
-                                }
-                                else {
-                                    System.out.println ("Insufficient Resources");
-                                }
-                                while (intValue >= resources)
+                                int intValue;
+                                do
                                 {
                                     System.out.print ("How much hp would you like to heal? ");
-                                    value = sc.nextLine();
+                                    String value = sc.nextLine();
                                     intValue = Integer.parseInt(value);
                                     if (resources > intValue)
                                     {
@@ -326,7 +305,7 @@ public class TextAdventure
                                     else {
                                         System.out.println ("Insufficient Resources");
                                     }
-                                }
+                                } while (intValue > resources);
                             }
                             if (enemyHP > 0 && battle)
                             {
@@ -345,7 +324,7 @@ public class TextAdventure
                             if (enemyHP <= 0)
                             {
                                 System.out.println ("You have successfully defeated the bandit.\nSome of the bandit's items" +
-                                        "seem like useful resources. Would you like to take them\n" +
+                                        " seem like useful resources. Would you like to take them\n" +
                                         "[1] Yes\n[2] No");
                                 System.out.println ("Enter your input: ");
                                 String value = sc.nextLine();
@@ -453,21 +432,11 @@ public class TextAdventure
                             }
                             else if (decision.equalsIgnoreCase("4"))
                             {
-                                System.out.print ("How much hp would you like to heal? ");
-                                String value = sc.nextLine();
-                                int intValue = Integer.parseInt(value);
-                                if (resources > intValue)
-                                {
-                                    hp += intValue;
-                                    resources -= intValue;
-                                }
-                                else {
-                                    System.out.println ("Insufficient Resources");
-                                }
-                                while (intValue > resources)
+                                int intValue;
+                                do
                                 {
                                     System.out.print ("How much hp would you like to heal? ");
-                                    value = sc.nextLine();
+                                    String value = sc.nextLine();
                                     intValue = Integer.parseInt(value);
                                     if (resources >= intValue)
                                     {
@@ -477,7 +446,7 @@ public class TextAdventure
                                     else {
                                         System.out.println ("Insufficient Resources");
                                     }
-                                }
+                                } while (intValue > resources);
                             }
                             if (enemyHP > 0 && battle)
                             {
@@ -595,7 +564,7 @@ public class TextAdventure
                             else
                             {
                                 hp -= (7-intValue);
-                                System.out.println ("The wolf's attack connects dealing " + (4-intValue) + "damage");
+                                System.out.println ("The wolf's attack connects dealing " + (4-intValue) + " damage");
                             }
                         }
                         boolean battle = true;
@@ -644,18 +613,8 @@ public class TextAdventure
                             }
                             else if (decision.equalsIgnoreCase("4"))
                             {
-                                System.out.print ("How much hp would you like to heal? ");
-                                value = sc.nextLine();
-                                int intValue = Integer.parseInt(value);
-                                if (resources >= intValue)
-                                {
-                                    hp += intValue;
-                                    resources -= intValue;
-                                }
-                                else {
-                                    System.out.println ("Insufficient Resources");
-                                }
-                                while (intValue > resources)
+                                int intValue;
+                                do
                                 {
                                     System.out.print ("How much hp would you like to heal? ");
                                     value = sc.nextLine();
@@ -668,7 +627,7 @@ public class TextAdventure
                                     else {
                                         System.out.println ("Insufficient Resources");
                                     }
-                                }
+                                } while (intValue > resources);
                             }
                             if (enemyHP > 0 && battle)
                             {
@@ -826,16 +785,8 @@ public class TextAdventure
                                     } else if (decision == 2) {
                                         System.out.println("You put up your guard");
                                     } else if (decision == 3) {
-                                        System.out.print("How much hp would you like to heal? ");
-                                        value = sc.nextLine();
-                                        int intValue = Integer.parseInt(value);
-                                        if (resources > intValue) {
-                                            hp += intValue;
-                                            resources -= intValue;
-                                        } else {
-                                            System.out.println("Insufficient Resources");
-                                        }
-                                        while (intValue > resources) {
+                                        int intValue;
+                                        do {
                                             System.out.print("How much hp would you like to heal? ");
                                             value = sc.nextLine();
                                             intValue = Integer.parseInt(value);
@@ -845,7 +796,7 @@ public class TextAdventure
                                             } else {
                                                 System.out.println("Insufficient Resources");
                                             }
-                                        }
+                                        } while (intValue > resources);
                                     }
                                     if (enemyHP > 0 && battle) {
                                         int intValue = rand.nextInt(3) + 1;
@@ -919,16 +870,8 @@ public class TextAdventure
                                 } else if (decision.equalsIgnoreCase("2")) {
                                     System.out.println("You put up your guard");
                                 } else if (decision.equalsIgnoreCase("3")) {
-                                    System.out.print("How much hp would you like to heal? ");
-                                    value = sc.nextLine();
-                                    int intValue = Integer.parseInt(value);
-                                    if (resources >= intValue) {
-                                        hp += intValue;
-                                        resources -= intValue;
-                                    } else {
-                                        System.out.println("Insufficient Resources");
-                                    }
-                                    while (intValue > resources) {
+                                    int intValue;
+                                    do {
                                         System.out.print("How much hp would you like to heal? ");
                                         value = sc.nextLine();
                                         intValue = Integer.parseInt(value);
@@ -938,7 +881,7 @@ public class TextAdventure
                                         } else {
                                             System.out.println("Insufficient Resources");
                                         }
-                                    }
+                                    } while (intValue > resources);
                                 }
                                 if (enemyHP > 0 && battle) {
                                     int intValue = rand.nextInt(3) + 1;
@@ -1073,21 +1016,11 @@ public class TextAdventure
                         }
                         else if (decision.equalsIgnoreCase("4"))
                         {
-                            System.out.print ("How much hp would you like to heal? ");
-                            String value = sc.nextLine();
-                            int intValue = Integer.parseInt(value);
-                            if (resources > intValue)
-                            {
-                                hp += intValue;
-                                resources -= intValue;
-                            }
-                            else {
-                                System.out.println ("Insufficient Resources");
-                            }
-                            while (intValue > resources)
+                            int intValue;
+                            do
                             {
                                 System.out.print ("How much hp would you like to heal? ");
-                                value = sc.nextLine();
+                                String value = sc.nextLine();
                                 intValue = Integer.parseInt(value);
                                 if (resources > intValue)
                                 {
@@ -1097,7 +1030,7 @@ public class TextAdventure
                                 else {
                                     System.out.println ("Insufficient Resources");
                                 }
-                            }
+                            } while (intValue > resources);
                         }
                         if (companion)
                         {
@@ -1208,7 +1141,7 @@ public class TextAdventure
 
                     //Encounter some bandits - then go to the mountains - second major decision - cave or cliff
                     //Second major decision
-                    int decision=0;
+                    String decision="";
                     if (play) {
                         if (companion) {
                             System.out.println("Companion: \"There are two methods to get past the mountains\n" +
@@ -1220,9 +1153,9 @@ public class TextAdventure
                                     "You can either go over the mountains, or you can go through a cave system");
                             System.out.println("Which path will you take?\n[1] Over the mountains\n[2] Through the caves");
                         }
-                        decision = sc.nextInt();
+                        decision = sc.nextLine();
                     }
-                    if (decision == 1 && play) {
+                    if (decision.equalsIgnoreCase("1") && play) {
                         //Scene 5 - cliffs
                         System.out.println("You continue walking and attempt to scale the mountain");
                         //Scene 5 battle 1
@@ -1262,18 +1195,10 @@ public class TextAdventure
                             } else if (battleDecision.equalsIgnoreCase("2")) {
                                 System.out.println("You put up your guard");
                             } else if (battleDecision.equalsIgnoreCase("4")) {
-                                System.out.print("How much hp would you like to heal? ");
-                                String value = sc.nextLine();
-                                int intValue = Integer.parseInt(value);
-                                if (resources > intValue) {
-                                    hp += intValue;
-                                    resources -= intValue;
-                                } else {
-                                    System.out.println("Insufficient Resources");
-                                }
-                                while (intValue > resources) {
+                                int intValue;
+                                do {
                                     System.out.print("How much hp would you like to heal? ");
-                                    value = sc.nextLine();
+                                    String value = sc.nextLine();
                                     intValue = Integer.parseInt(value);
                                     if (resources >= intValue) {
                                         hp += intValue;
@@ -1281,7 +1206,7 @@ public class TextAdventure
                                     } else {
                                         System.out.println("Insufficient Resources");
                                     }
-                                }
+                                } while (intValue > resources);
                             }
                             if (companion) {
                                 enemyHP -= companionDMG;
@@ -1289,7 +1214,7 @@ public class TextAdventure
                             }
                             if (enemyHP > 0 && battle) {
                                 int value = rand.nextInt(6) + 1;
-                                if (decision == 2) {
+                                if (battleDecision.equalsIgnoreCase("2")) {
                                     if (companion) {
                                         boolean target = rand.nextBoolean();
                                         if (target) {
@@ -1385,18 +1310,10 @@ public class TextAdventure
                                 } else if (battleDecision.equalsIgnoreCase("2")) {
                                     System.out.println("You put up your guard");
                                 } else if (battleDecision.equalsIgnoreCase("4")) {
-                                    System.out.print("How much hp would you like to heal? ");
-                                    String value = sc.nextLine();
-                                    int intValue = Integer.parseInt(value);
-                                    if (resources >= intValue) {
-                                        hp += intValue;
-                                        resources -= intValue;
-                                    } else {
-                                        System.out.println("Insufficient Resources");
-                                    }
-                                    while (intValue > resources) {
+                                    int intValue;
+                                    do {
                                         System.out.print("How much hp would you like to heal? ");
-                                        value = sc.nextLine();
+                                        String value = sc.nextLine();
                                         intValue = Integer.parseInt(value);
                                         if (resources > intValue) {
                                             hp += intValue;
@@ -1404,7 +1321,7 @@ public class TextAdventure
                                         } else {
                                             System.out.println("Insufficient Resources");
                                         }
-                                    }
+                                    } while (intValue > resources);
                                 }
                                 if (companion) {
                                     enemyHP -= companionDMG;
@@ -1412,7 +1329,7 @@ public class TextAdventure
                                 }
                                 if (enemyHP > 0 && battle) {
                                     int value = rand.nextInt(6) + 1;
-                                    if (decision == 2) {
+                                    if (battleDecision.equalsIgnoreCase("2")) {
                                         if (companion) {
                                             boolean target = rand.nextBoolean();
                                             if (target) {
@@ -1449,7 +1366,7 @@ public class TextAdventure
                             System.out.println("Having defeated the dragon, you now descend the mountain, and arrive on the other side");
                         }
                     }
-                    else if (decision == 2 && play)
+                    else if (decision.equalsIgnoreCase("2") && play)
                     {
                         //Scene 6 - caves
                         int path = 0;
@@ -1460,6 +1377,7 @@ public class TextAdventure
                             System.out.println("You see 3 paths you can take to get deeper into the caves");
                             System.out.println("You can either go left, right, or forward.\n Which direction do you want to go in?");
                             System.out.println("[1] Left\n[2] Right\n[3] Forward");
+                            System.out.println("Enter your input: ");
                             String value = sc.nextLine();
                             int intValue = Integer.parseInt(value);
                             path += intValue;
@@ -1483,6 +1401,7 @@ public class TextAdventure
                                 System.out.println ("Demon 2: \"It's not like you have a choice. By entering here, you agreed to never leave\"");
                                 enemy1hp = 100;
                                 enemy2hp = 100;
+                                battle = true;
                                 for (int round = 0 ; round < 5 ; round++)
                                 {
                                     System.out.println("                                ,   ,\n" +
@@ -1512,26 +1431,17 @@ public class TextAdventure
                                         System.out.println("You put up your guard");
                                     }
                                     else if (battleDecision.equalsIgnoreCase("3")) {
-                                        System.out.print("How much hp would you like to heal? ");
-                                        value = sc.nextLine();
-                                        intValue = Integer.parseInt(value);
-                                        if (resources > intValue) {
-                                            hp += intValue;
-                                            resources -= intValue;
-                                        } else {
-                                            System.out.println("Insufficient Resources");
-                                        }
-                                        while (intValue > resources) {
+                                        do {
                                             System.out.print("How much hp would you like to heal? ");
                                             value = sc.nextLine();
                                             intValue = Integer.parseInt(value);
-                                            if (resources > intValue) {
+                                            if (resources >= intValue) {
                                                 hp += intValue;
                                                 resources -= intValue;
                                             } else {
                                                 System.out.println("Insufficient Resources");
                                             }
-                                        }
+                                        } while (intValue > resources);
                                     }
                                     if (companion) {
                                         if (enemy1hp <= enemy2hp && enemy1hp > 0) {
@@ -1544,7 +1454,7 @@ public class TextAdventure
                                     }
                                     if (enemy1hp > 0 && battle) {
                                         intValue = rand.nextInt(20) + 1;
-                                        if (decision == 2) {
+                                        if (battleDecision.equalsIgnoreCase("2")) {
                                             if (companion) {
                                                 boolean target = rand.nextBoolean();
                                                 if (target) {
@@ -1565,7 +1475,7 @@ public class TextAdventure
                                     }
                                     if (enemy2hp > 0 && battle) {
                                         intValue = rand.nextInt(20) + 1;
-                                        if (decision == 2) {
+                                        if (battleDecision.equalsIgnoreCase("2")) {
                                             if (companion) {
                                                 boolean target = rand.nextBoolean();
                                                 if (target) {
@@ -1588,6 +1498,7 @@ public class TextAdventure
                                 if (hp <= 0)
                                 {
                                     System.out.println ("After everything that happened, your soul is now forfeit");
+                                    battle = false;
                                 }
                                 else
                                 {
@@ -1701,23 +1612,12 @@ public class TextAdventure
                                     }
                                     else if (battleDecision.equalsIgnoreCase("4"))
                                     {
-                                        System.out.print ("How much hp would you like to heal? ");
-                                        value = sc.nextLine();
-                                        intValue = Integer.parseInt(value);
-                                        if (resources > intValue)
-                                        {
-                                            hp += intValue;
-                                            resources -= intValue;
-                                        }
-                                        else {
-                                            System.out.println ("Insufficient Resources");
-                                        }
-                                        while (intValue > resources)
+                                        do
                                         {
                                             System.out.print ("How much hp would you like to heal? ");
                                             value = sc.nextLine();
                                             intValue = Integer.parseInt(value);
-                                            if (resources > intValue)
+                                            if (resources >= intValue)
                                             {
                                                 hp += intValue;
                                                 resources -= intValue;
@@ -1725,7 +1625,7 @@ public class TextAdventure
                                             else {
                                                 System.out.println ("Insufficient Resources");
                                             }
-                                        }
+                                        } while (intValue > resources);
                                     }
                                     if (companion)
                                     {
@@ -1735,7 +1635,7 @@ public class TextAdventure
                                     if (enemyHP > 0 && battle)
                                     {
                                         intValue = rand.nextInt(6) + 1;
-                                        if (decision == 2)
+                                        if (battleDecision.equalsIgnoreCase("2"))
                                         {
                                             if (companion)
                                             {
@@ -1815,16 +1715,7 @@ public class TextAdventure
                                     } else if (battleDecision.equalsIgnoreCase("2")) {
                                         System.out.println("You put up your guard");
                                     } else if (battleDecision.equalsIgnoreCase("4")) {
-                                        System.out.print("How much hp would you like to heal? ");
-                                        value = sc.nextLine();
-                                        intValue = Integer.parseInt(value);
-                                        if (resources >= intValue) {
-                                            hp += intValue;
-                                            resources -= intValue;
-                                        } else {
-                                            System.out.println("Insufficient Resources");
-                                        }
-                                        while (intValue > resources) {
+                                        do {
                                             System.out.print("How much hp would you like to heal? ");
                                             value = sc.nextLine();
                                             intValue = Integer.parseInt(value);
@@ -1834,7 +1725,7 @@ public class TextAdventure
                                             } else {
                                                 System.out.println("Insufficient Resources");
                                             }
-                                        }
+                                        } while (intValue > resources);
                                     }
                                     if (companion) {
                                         if (enemy1hp <= enemy2hp && enemy1hp > 0) {
@@ -1847,7 +1738,7 @@ public class TextAdventure
                                     }
                                     if (enemy1hp > 0 && battle) {
                                         intValue = rand.nextInt(3) + 1;
-                                        if (decision == 2) {
+                                        if (battleDecision.equalsIgnoreCase("2")) {
                                             if (companion) {
                                                 boolean target = rand.nextBoolean();
                                                 if (target) {
@@ -1868,7 +1759,7 @@ public class TextAdventure
                                     }
                                     if (enemy2hp > 0 && battle) {
                                         intValue = rand.nextInt(3) + 1;
-                                        if (decision == 2) {
+                                        if (battleDecision.equalsIgnoreCase("2")) {
                                             if (companion) {
                                                 boolean target = rand.nextBoolean();
                                                 if (target) {
@@ -1931,6 +1822,7 @@ public class TextAdventure
                         }
                     }
                     //Scene 8 - plains + aurora borealis
+                    battle = true;
                     if (play) {
                         System.out.println(" ` : | | | |:  ||  :     `  :  |  |+|: | : : :|   .        `              .\n" +
                                 "      ` : | :|  ||  |:  :    `  |  | :| : | : |:   |  .                    :\n" +
@@ -2083,33 +1975,25 @@ public class TextAdventure
                             } else if (battleDecision.equalsIgnoreCase("2")) {
                                 System.out.println("You put up your guard");
                             } else if (battleDecision.equalsIgnoreCase("3")) {
-                                System.out.print("How much hp would you like to heal? ");
-                                String value = sc.nextLine();
-                                int intValue = Integer.parseInt(value);
-                                if (resources > intValue) {
-                                    hp += intValue;
-                                    resources -= intValue;
-                                } else {
-                                    System.out.println("Insufficient Resources");
-                                }
-                                while (intValue > resources) {
+                                int intValue;
+                                do {
                                     System.out.print("How much hp would you like to heal? ");
-                                    value = sc.nextLine();
+                                    String value = sc.nextLine();
                                     intValue = Integer.parseInt(value);
-                                    if (resources > intValue) {
+                                    if (resources >= intValue) {
                                         hp += intValue;
                                         resources -= intValue;
                                     } else {
                                         System.out.println("Insufficient Resources");
                                     }
-                                }
+                                } while (intValue > resources);
                             }
                             if (companion) {
                                 enemyHP -= companionDMG;
                                 System.out.println("Your companion strike at the Gatekeeper dealing " + companionDMG + " damage");
                             }
                             if (enemyHP > 0 && battle) {
-                                if (decision == 2) {
+                                if (battleDecision.equalsIgnoreCase("2")) {
                                     if (companion) {
                                         boolean target = rand.nextBoolean();
                                         if (target) {
